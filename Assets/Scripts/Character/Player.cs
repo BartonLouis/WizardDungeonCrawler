@@ -1,4 +1,5 @@
 using CharacterMechanics.Stats;
+using Louis.Patterns.ServiceLocator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using UnityEngine;
 using Utils;
 
 namespace CharacterMechanics {
-    public class Player : MonoBehaviour {
+    public class Player : MonoBehaviour, IService {
         public static readonly int STAT_MIN_VALUE = 1;
         public static readonly int STAT_MAX_VALUE = 30;
 
@@ -28,6 +29,14 @@ namespace CharacterMechanics {
 
         private void Awake() {
             GenerateStats();
+        }
+
+        private void OnEnable() {
+            ServiceLocator.Register(this);
+        }
+
+        private void OnDisable() {
+            ServiceLocator.Register(this);
         }
 
         void ValidateStats() {

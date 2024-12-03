@@ -15,9 +15,9 @@ namespace CharacterMechanics.Stats {
             }
         }
         public event Action<float> onChanged;
-        protected Player _player;
+        protected PlayerStatsManager _player;
 
-        public SecondaryStat(Player player) {
+        public SecondaryStat(PlayerStatsManager player) {
             _player = player;
         }
 
@@ -29,12 +29,12 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.CarryCapacity;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Strength;
         public override string Unit => "Kg";
-        public CarryCapacityStat(Player player) : base(player) { CalculateValue(); }
+        public CarryCapacityStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             float val = _player.ScalingSettings.maxStrength *
                 MathF.Pow(MathF.E,
-                ((float)_player[PrimaryStatTag.Strength].Value - Player.STAT_MAX_VALUE)
+                ((float)_player[PrimaryStatTag.Strength].Value - PlayerStatsManager.STAT_MAX_VALUE)
                 / _player.ScalingSettings.strengthScaling);
             Value = Mathf.CeilToInt(val);
         }
@@ -44,7 +44,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.Range;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Strength;
         public override string Unit => "%";
-        public RangeStat(Player player) : base(player) { CalculateValue(); }
+        public RangeStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = Mathf.Clamp(100 + _player.ScalingSettings.accuracyGainPerLevel * ((float)_player[PrimaryStatTag.Strength].Value - 10), 1, float.MaxValue);
@@ -58,7 +58,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.HP;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Vitality;
         public override string Unit => "HP";
-        public HPStat(Player player) : base(player) { CalculateValue(); }
+        public HPStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             int vitality = _player[PrimaryStatTag.Vitality].Value;
@@ -76,7 +76,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.Defence;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Vitality;
         public override string Unit => "%";
-        public DefenceStat(Player player) : base(player) { CalculateValue(); }
+        public DefenceStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player.ScalingSettings.defencePerLevel * (_player[PrimaryStatTag.Vitality].Value - 10);
@@ -87,7 +87,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.MoveSpeed;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Dexterity;
         public override string Unit => "m/s";
-        public MoveSpeedStat(Player player) : base(player) { CalculateValue(); }
+        public MoveSpeedStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             int dex = _player[PrimaryStatTag.Dexterity].Value;
@@ -99,7 +99,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.Dodge;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Dexterity;
         public override string Unit => "%";
-        public DodgeStat(Player player) : base(player) { CalculateValue(); }
+        public DodgeStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             int dex = _player[PrimaryStatTag.Dexterity].Value;
@@ -115,7 +115,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.CritRate;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Dexterity;
         public override string Unit => "%";
-        public CritRateStat(Player player) : base(player) { CalculateValue(); }
+        public CritRateStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             int dex = _player[PrimaryStatTag.Dexterity].Value;
@@ -128,7 +128,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.ModSlots;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Intelligence;
         public override string Unit => "Slots";
-        public ModSlotsStat(Player player) : base(player) { CalculateValue(); }
+        public ModSlotsStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             float intelligence = _player[PrimaryStatTag.Intelligence].Value;
@@ -146,7 +146,7 @@ namespace CharacterMechanics.Stats {
         public override SecondaryStatTag Tag => SecondaryStatTag.Accuracy;
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Intelligence;
         public override string Unit => "Deg";
-        public AccuracyStat(Player player) : base(player) { CalculateValue(); }
+        public AccuracyStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player[PrimaryStatTag.Intelligence].Value;
@@ -158,7 +158,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Arcane;
         public override string Unit => "%";
 
-        public BaseDamageStat(Player player) : base(player) { CalculateValue(); }
+        public BaseDamageStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player[PrimaryStatTag.Arcane].Value;
@@ -170,7 +170,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Arcane;
         public override string Unit => "FP";
 
-        public ManaStat(Player player) : base(player) { CalculateValue(); }
+        public ManaStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player[PrimaryStatTag.Arcane].Value;
@@ -182,7 +182,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Eloquence;
         public override string Unit => "/s";
 
-        public FireRateStat(Player player) : base(player) { CalculateValue(); }
+        public FireRateStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player[PrimaryStatTag.Eloquence].Value;
@@ -194,7 +194,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Eloquence;
         public override string Unit => "%";
 
-        public ShopPriceStat(Player player) : base(player) { CalculateValue(); }
+        public ShopPriceStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = _player[PrimaryStatTag.Eloquence].Value;
@@ -206,7 +206,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Vitality | PrimaryStatTag.Arcane;
         public override string Unit => "HP/s";
 
-        public PassiveHPRegenStat(Player player) : base(player) { CalculateValue(); }
+        public PassiveHPRegenStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;
@@ -218,7 +218,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Vitality | PrimaryStatTag.Intelligence;
         public override string Unit => "HP/k";
 
-        public LifeStealStat(Player player) : base(player) { CalculateValue(); }
+        public LifeStealStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;
@@ -230,7 +230,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => throw new NotImplementedException();
         public override string Unit => "%";
 
-        public ThornsStat(Player player) : base(player) { CalculateValue(); }
+        public ThornsStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;
@@ -242,7 +242,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Arcane | PrimaryStatTag.Eloquence;
         public override string Unit => "FP/s";
 
-        public PassiveManaRegenStat(Player player) : base(player) { CalculateValue(); }
+        public PassiveManaRegenStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;
@@ -254,7 +254,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Strength | PrimaryStatTag.Dexterity;
         public override string Unit => "FP/k";
 
-        public ManaOnKillStat(Player player) : base(player) { CalculateValue(); }
+        public ManaOnKillStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;
@@ -266,7 +266,7 @@ namespace CharacterMechanics.Stats {
         public override PrimaryStatTag ScalesOnTag => PrimaryStatTag.Eloquence | PrimaryStatTag.Arcane;
         public override string Unit => "%";
 
-        public LuckStat(Player player) : base(player) { CalculateValue(); }
+        public LuckStat(PlayerStatsManager player) : base(player) { CalculateValue(); }
 
         public override void CalculateValue() {
             Value = 0;

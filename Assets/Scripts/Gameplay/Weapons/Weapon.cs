@@ -1,21 +1,24 @@
-﻿using Louis.Patterns.ServiceLocator;
+﻿using Gameplay.Projectiles;
+using Louis.Patterns.ServiceLocator;
 using Managers;
+using Services;
 using UnityEngine;
 
 
-namespace Weapons {
+namespace Gameplay.Weapons {
     public class Weapon : MonoBehaviour {
-
-
         [Header("Config")]
         [SerializeField] WeaponConfig _config;
+        IProjectilePoolService _poolService;
+        IProjectileOwner _owner;
 
         float _cooldown;
         bool _firing;
 
         private void Start() {
             ServiceLocator.TryGetService<IWeaponMountService>(out var weaponMountService);
-            weaponMountService?.MountWeapon(this);
+            ServiceLocator.TryGetService<IProjectilePoolService>(out _poolService);
+            _owner = weaponMountService?.MountWeapon(this);
         }
 
         private void OnEnable() {
@@ -42,7 +45,8 @@ namespace Weapons {
 
         void Fire() {
             _cooldown = 1f / _config.fireRate;
-            Logging.Log(this, "Firing!");
+            Projectile projectile = _poolService.GetProjectile();
+            projectile.Fire(_owner, transform.position, transform.rotation, _config.projectile);
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CharacterMechanics {
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(PlayerStatsManager))]
     public class PlayerMovement : MonoBehaviour {
 
         [Header("Settings")]
@@ -14,13 +14,13 @@ namespace CharacterMechanics {
             "Move speed = 10m/s\n Coefficient = 20\n Acceleration = 10 * 20 = 200m/s^2")]
         [SerializeField] float accelerationCoefficient = 20f;
 
-        Player _player;
+        PlayerStatsManager _player;
         Rigidbody2D _rigidbody;
         Vector2 _movement;
         float _moveSpeed;
 
         void OnEnable() {
-            _player = GetComponent<Player>();
+            _player = GetComponent<PlayerStatsManager>();
             _rigidbody = GetComponent<Rigidbody2D>();
             InputManager.onMove += OnMove;
             _player[Stats.SecondaryStatTag.MoveSpeed].onChanged += OnMoveSpeedChanged;
@@ -29,6 +29,7 @@ namespace CharacterMechanics {
         void OnDisable() {
             InputManager.onMove -= OnMove;
             _player[Stats.SecondaryStatTag.MoveSpeed].onChanged -= OnMoveSpeedChanged;
+            _moveSpeed = _player[Stats.SecondaryStatTag.MoveSpeed].Value;
         }
 
         void Start() {
@@ -48,7 +49,7 @@ namespace CharacterMechanics {
             _rigidbody.linearVelocity = Vector2.MoveTowards(
                 _rigidbody.linearVelocity, 
                 _moveSpeed * _movement, 
-                Time.fixedDeltaTime * _moveSpeed * 20);
+                Time.fixedDeltaTime * _moveSpeed * accelerationCoefficient);
         }
     }
 }

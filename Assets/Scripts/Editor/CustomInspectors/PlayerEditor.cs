@@ -6,16 +6,16 @@ using UnityEngine;
 using Utils;
 
 namespace Editors {
-    [CustomEditor(typeof(Player))]
+    [CustomEditor(typeof(PlayerStatsManager))]
     public class PlayerEditor : Editor {
-        Player _player;
+        PlayerStatsManager _player;
         bool showPrimary = true;
         bool showSecondary = true;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
             if (_player == null) {
-                _player = target as Player;
+                _player = target as PlayerStatsManager;
             }
             _player.GenerateStats();
             GUILayout.Space(25);

@@ -15,16 +15,16 @@ namespace CharacterMechanics.Stats {
             }
         }
         public event Action<int> onChanged;
-        protected Player _player;
+        protected PlayerStatsManager _player;
 
-        public PrimaryStat(Player player, PrimaryStatTag tag) {
+        public PrimaryStat(PlayerStatsManager player, PrimaryStatTag tag) {
             _player = player;
             Tag = tag;
         }
 
         public void CalculateValue() {
             Value = _player.GetBaseStat(Tag) + _player.GetInvestedPoints(Tag) + Enumerable.Sum(_player.GetPrimaryModifiers(Tag), m => m.value);
-            Value = Mathf.Clamp(Value, Player.STAT_MIN_VALUE, Player.STAT_MAX_VALUE);
+            Value = Mathf.Clamp(Value, PlayerStatsManager.STAT_MIN_VALUE, PlayerStatsManager.STAT_MAX_VALUE);
         }
 
         public class PrimaryStatComparer : IEqualityComparer<PrimaryStat> {

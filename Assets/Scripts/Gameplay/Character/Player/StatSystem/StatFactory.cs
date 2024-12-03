@@ -2,11 +2,11 @@
 
 namespace CharacterMechanics.Stats {
     public static class StatFactory {
-        public static PrimaryStat CreatePrimaryStat(Player player, PrimaryStatTag tag) {
+        public static PrimaryStat CreatePrimaryStat(PlayerStatsManager player, PrimaryStatTag tag) {
             return new PrimaryStat(player, tag);
         }
 
-        public static SecondaryStat CreateSecondaryStat(Player player, SecondaryStatTag tag) {
+        public static SecondaryStat CreateSecondaryStat(PlayerStatsManager player, SecondaryStatTag tag) {
             return tag switch { 
                 SecondaryStatTag.None => new HPStat(player), 
                 SecondaryStatTag.CarryCapacity => new CarryCapacityStat(player), 

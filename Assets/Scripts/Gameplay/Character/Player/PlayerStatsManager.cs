@@ -1,4 +1,5 @@
 using CharacterMechanics.Stats;
+using Interfaces;
 using Louis.Patterns.ServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,8 @@ using UnityEngine;
 using Utils;
 
 namespace CharacterMechanics {
-    public class Player : MonoBehaviour, IService {
+
+    public class PlayerStatsManager : MonoBehaviour, IPlayerStatsService {
         public static readonly int STAT_MIN_VALUE = 1;
         public static readonly int STAT_MAX_VALUE = 30;
 
@@ -21,7 +23,6 @@ namespace CharacterMechanics {
         [SerializeField] List<PrimaryStatValue> primaryModifiers = new();
         [SerializeField] List<SecondaryStatValue> secondaryModifiers = new();
 
-
         Dictionary<PrimaryStatTag, PrimaryStat> primaryStatsDict = new();
         Dictionary<SecondaryStatTag, SecondaryStat> secondaryStatsDict = new();
         public PrimaryStat this[PrimaryStatTag tag] => primaryStatsDict[tag];
@@ -32,11 +33,11 @@ namespace CharacterMechanics {
         }
 
         private void OnEnable() {
-            ServiceLocator.Register(this);
+            ServiceLocator.Register<IPlayerStatsService>(this);
         }
 
         private void OnDisable() {
-            ServiceLocator.Register(this);
+            ServiceLocator.Deregister<IPlayerStatsService>(this);
         }
 
         void ValidateStats() {

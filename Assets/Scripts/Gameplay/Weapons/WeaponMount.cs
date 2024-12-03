@@ -1,17 +1,19 @@
 using Louis.Patterns.ServiceLocator;
 using Managers;
+using Services;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 
-namespace Weapons {
+namespace Gameplay.Weapons {
     public class WeaponMount : MonoBehaviour, IWeaponMountService {
+        IProjectileOwner _owner;
         Weapon _mountedWeapon;
         Vector2 _mousePos = Vector2.zero;
 
         private void OnEnable() {
             InputManager.onMousePosition += OnMouseMove;
             ServiceLocator.Register<IWeaponMountService>(this);
+            transform.parent.TryGetComponent<IProjectileOwner>(out _owner);
         }
 
         private void OnDisable() {
@@ -19,7 +21,7 @@ namespace Weapons {
             ServiceLocator.Deregister<IWeaponMountService>(this);
         }
 
-        public void MountWeapon(Weapon weapon) {
+        public IProjectileOwner MountWeapon(Weapon weapon) {
             if (_mountedWeapon != null) {
                 Destroy(_mountedWeapon);
             }
@@ -27,6 +29,7 @@ namespace Weapons {
             _mountedWeapon.transform.parent = transform;
             _mountedWeapon.transform.localPosition = Vector2.zero;
             Logging.Log(this, $"Mounted weapon: {weapon.name}");
+            return _owner;
         }
 
         void OnMouseMove(Vector2 mousePos) {

@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using Gameplay.Projectiles;
+using UnityEngine;
 
 
-namespace Weapons {
+namespace Gameplay.Weapons {
     [CreateAssetMenu(menuName = "Data/Weapon")]
     public class WeaponConfig : ScriptableObject {
+
+        public ProjectileConfig projectile;
         public float fireRate;
 
         private void OnValidate() {

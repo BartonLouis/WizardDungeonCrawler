@@ -1,8 +1,10 @@
 ﻿using Louis.Patterns.ServiceLocator;
+using Gameplay.Weapons;
+using Gameplay;
 
 
-namespace Weapons {
+namespace Services {
     public interface IWeaponMountService : IService {
-        void MountWeapon(Weapon weapon);
+        IProjectileOwner MountWeapon(Weapon weapon);
     }
 }

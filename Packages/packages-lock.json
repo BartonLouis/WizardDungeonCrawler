@@ -10,6 +10,13 @@
       },
       "hash": "b849990020c30ac6ead4e4fb4881428f86dcde0d"
     },
+    "com.nol1fe.delaunator": {
+      "version": "https://github.com/nol1fe/delaunator-sharp.git?path=DelaunatorSharp.Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8fadb8adada27aecf031e315a73790ca07431a78"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 1,

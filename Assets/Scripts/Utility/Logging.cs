@@ -14,6 +14,11 @@ namespace Managers {
         public static void Log(Object sender, string message, LogLevel logLevel = LogLevel.Debug) {
             Debug.Log($"<b><color=#{ColorUtility.ToHtmlStringRGBA(colours[logLevel])}>{sender.name}: </color></b> {message}");
         }
+
+        public static void Log(string sender, string message, LogLevel logLevel = LogLevel.Debug) {
+            Debug.Log($"<b><color=#{ColorUtility.ToHtmlStringRGBA(colours[logLevel])}>{sender}: </color></b> {message}");
+        }
+
     }
 
     public enum LogLevel {

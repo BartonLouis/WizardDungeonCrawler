@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BasicProjectile
   m_EditorClassIdentifier: 
   baseDamage: 10
-  baseSpeed: 1
+  baseSpeed: 100
   lifetime: 5
   collidesWith:
     serializedVersion: 2
@@ -26,21 +26,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -50,13 +50,22 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0.05
+      inSlope: -0.007125035
+      outSlope: -0.007125035
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.59583336
+    - serializedVersion: 3
+      time: 0.0690811
+      value: 0.05308054
+      inSlope: 0.019453106
+      outSlope: 0.019453106
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.45876995
     - serializedVersion: 3
       time: 1
       value: 1
@@ -72,4 +81,4 @@ MonoBehaviour:
   lightColor: {r: 1, g: 1, b: 1, a: 1}
   lightIntensity: 1
   lightInnerRadius: 1
-  lightOuterRadius: 1.5
+  lightOuterRadius: 2

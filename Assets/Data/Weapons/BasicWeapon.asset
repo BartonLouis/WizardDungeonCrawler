@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4f1b557b524f42bd7c70d783e0a62, type: 3}
   m_Name: BasicWeapon
   m_EditorClassIdentifier: 
+  firePointOffset: {x: 0.5, y: 0, z: 0}
   projectile: {fileID: 11400000, guid: 8afd47c0929677b4d9e5e817248ed153, type: 2}
   fireRate: 5

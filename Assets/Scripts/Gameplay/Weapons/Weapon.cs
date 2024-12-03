@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Gameplay.Weapons {
     public class Weapon : MonoBehaviour {
-        [Header("Config")]
+        [Header("Settings")]
+        [SerializeField] Transform _firePoint;
         [SerializeField] WeaponConfig _config;
         IProjectilePoolService _poolService;
         IProjectileOwner _owner;
@@ -19,6 +20,7 @@ namespace Gameplay.Weapons {
             ServiceLocator.TryGetService<IWeaponMountService>(out var weaponMountService);
             ServiceLocator.TryGetService<IProjectilePoolService>(out _poolService);
             _owner = weaponMountService?.MountWeapon(this);
+            _firePoint.localPosition = _config.firePointOffset;
         }
 
         private void OnEnable() {
@@ -46,7 +48,7 @@ namespace Gameplay.Weapons {
         void Fire() {
             _cooldown = 1f / _config.fireRate;
             Projectile projectile = _poolService.GetProjectile();
-            projectile.Fire(_owner, transform.position, transform.rotation, _config.projectile);
+            projectile.Fire(_owner, _firePoint.position, transform.rotation, _config.projectile);
         }
     }
 }

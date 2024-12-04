@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454d90627fea9034abae6f78b4fe3082, type: 3}
   m_Name: 01. Room Generation
   m_EditorClassIdentifier: 
-  _numRoomsPlaced: 50
-  _maxRooms: 30
+  _numRoomsPlaced: 10
+  _maxRooms: 10
   _placementRadius: 20
   _maxIterations: 100
   _stepWeight: 0.1

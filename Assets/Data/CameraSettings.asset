@@ -15,4 +15,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -10}
   mouseLookWeight: 0.05
   smoothTime: 0.25
-  cameraSize: 20
+  zoomSpeed: 20
+  borderWhenInRoom: 4
+  freeCameraSize: 15
+  minCameraSize: 10

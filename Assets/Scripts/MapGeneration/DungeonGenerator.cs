@@ -29,6 +29,10 @@ namespace DungeonGeneration {
             ServiceLocator.Deregister<IDungeonGeneratorService>(this);
         }
 
+        private void Awake() {
+            Generate();
+        }
+
         public void Generate(int seed) {
             _seed = seed;
             Generate();

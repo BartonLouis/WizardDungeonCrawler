@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b0bddf78f5125438e337282a32f62f, type: 3}
   m_Name: 06. Cave Generation
   m_EditorClassIdentifier: 
-  _numIterations: 20
+  _numIterations: 25
   _adjacentWeight: 2
   _diagonalWeight: 1.2
   _weightThresholForWall: 7.75

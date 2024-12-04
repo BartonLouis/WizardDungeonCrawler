@@ -1,16 +1,15 @@
-using Managers;
 using UnityEngine;
-using Random = System.Random;
 
 namespace DungeonGeneration {
     [CreateAssetMenu(menuName = "Dungeon Generation/Generation Step/Dungeon Bounds Generation Step")]
     public class DungeonBoundsCalculationStep : AbstractGenerationStep {
         [Header("Settings")]
         [SerializeField] int _falloffRadius;
+        [SerializeField] int _safeZoneSize;
 
         public override void Generate(DungeonInfo dungeon) {
             int radius = 0;
-            foreach(RoomInfo room in dungeon.Rooms) {
+            foreach (RoomInfo room in dungeon.Rooms) {
                 float dist = Vector2.Distance(dungeon.Center, room.bounds.center);
                 //dist += Mathf.Sqrt(room.bounds.size.x * room.bounds.size.x + room.bounds.size.y * room.bounds.size.y);
                 if (dist > radius) {
@@ -18,7 +17,7 @@ namespace DungeonGeneration {
                 }
             }
 
-            int squareSize = Mathf.CeilToInt(2 * (radius + _falloffRadius));
+            int squareSize = Mathf.CeilToInt(2 * (radius + _falloffRadius + _safeZoneSize));
             int width = squareSize;
             int height = squareSize;
             TileInfo[] tiles = new TileInfo[width * height];

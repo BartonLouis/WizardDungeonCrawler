@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Bits: 320
   projectileRadius: 0.25
   colliderRadius: 0.25
-  maxVerticalOffset: 1
+  maxVerticalOffset: 0
   verticalOffsetCurve:
     serializedVersion: 2
     m_Curve:

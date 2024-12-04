@@ -26,40 +26,21 @@ namespace DungeonGeneration {
 
         Random _random;
 
-        public override DungeonInfo Generate(DungeonInfo dungeon) {
+        public override void Generate(DungeonInfo dungeon) {
             _doubleMinWidth = 2 * _minRoomWidth;
             _doubleMinHeight = 2 * _minRoomHeight;
 
             _random = new(dungeon.Seed);
             BoundsInt bounds = new BoundsInt(
                     (Vector3Int)dungeon.Center,
-                    new Vector3Int(dungeon.Width - dungeon.Border * 2, dungeon.Height - dungeon.Border * 2)
+                    new Vector3Int(dungeon.Width, dungeon.Height)
                 );
 
             List<RoomInfo> rooms = BinarySpacePartition(bounds);
             rooms.Shuffle(_random);
             rooms = rooms.Take(Mathf.Min(_maxRooms, rooms.Count())).ToList();
             foreach (RoomInfo room in rooms) {
-                DrawRoom(dungeon, room);
-            }
-            return dungeon;
-        }
-
-
-        void DrawRoom(DungeonInfo dungeon, RoomInfo roomInfo) {
-            dungeon.AddRoom(roomInfo);
-            BoundsInt room = roomInfo.bounds;
-            for (int x = room.min.x + _margin; x < room.max.x - _margin; x++) {
-                for (int y = room.min.y + _margin; y < room.max.y - _margin; y++) {
-                    TileInfo info = dungeon[x, y];
-                    TileLayer layer = (
-                        x < room.min.x + _border + _margin
-                        || x > room.max.x - _border - _margin - 1
-                        || y < room.min.y + _border + _margin
-                        || y > room.max.y - _border - _margin - 1)
-                        ? TileLayer.Wall : TileLayer.Floor;
-                    dungeon[x, y] = new TileInfo(info, layer);
-                }
+                dungeon.DrawRoom(room);
             }
         }
 

@@ -6,10 +6,6 @@ namespace DungeonGeneration {
     public class DungeonGenerator : MonoBehaviour {
         [Header("Settings")]
         [SerializeField] int _seed;
-        [SerializeField] Vector2Int _center;
-        [SerializeField] int _width;
-        [SerializeField] int _height;
-        [SerializeField] int _border;
 
         [Header("Generation Steps")]
         [SerializeField] List<AbstractGenerationStep> _generationSteps;
@@ -22,21 +18,21 @@ namespace DungeonGeneration {
         }
 
         public void Generate() {
-            DungeonInfo dungeon = new DungeonInfo(_center, _width, _height, _border, _seed);
+            DungeonInfo dungeon = new DungeonInfo(_seed, Vector2Int.zero);
             foreach (var step in _generationSteps) {
-                dungeon = step.Generate(dungeon);
+                step.Generate(dungeon);
             }
 
             _visualiser = GetComponent<TilemapVisualiser>();
             _visualiser.Clear();
             foreach(var tile in dungeon) {
-                _visualiser.PaintSingleTile(dungeon.Center + new Vector2Int(tile.x - dungeon.Width / 2, tile.y - dungeon.Height / 2), tile.layer);
+                _visualiser.PaintSingleTile(new Vector2Int(tile.x, tile.y), tile.layer);
             }
         }
 
     }
 
     public interface IGenerationStep {
-        public DungeonInfo Generate(DungeonInfo dungeon);
+        public void Generate(DungeonInfo dungeon);
     }
 }

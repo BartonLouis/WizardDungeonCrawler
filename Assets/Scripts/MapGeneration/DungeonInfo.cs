@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,70 +7,72 @@ using UnityEngine;
 namespace DungeonGeneration {
     [Serializable]
     public class DungeonInfo : IEnumerable<TileInfo> {
-        readonly Vector2Int _center;
-        readonly int _width;
-        readonly int _height;
-        readonly int _border;
         readonly int _seed;
 
-        readonly TileInfo[] _map;
-        readonly List<RoomInfo> _rooms;
+        TileInfo[] _map;
+        RoomInfo[] _rooms;
 
-        public Vector2Int Center => _center;
-        public int Width => _width;
-        public int Height => _height;
-        public int Border => _border;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public int Border { get; private set; }
+        public Vector2Int Center { get; private set; }
+        public float Radius { get; private set; }
+        public float FalloffRadius { get; private set; }
         public int Seed => _seed;
-        public IReadOnlyList<RoomInfo> Room => _rooms;
         public IReadOnlyList<TileInfo> Map => _map;
+        public IReadOnlyList<RoomInfo> Rooms => _rooms;
 
         public TileInfo this[int x, int y] {
             get {
-                if (x < 0 || y < 0 || x >= _width || y >= _height) {
+                x += Width / 2;
+                y += Height / 2;
+                if (x < 0 || y < 0 || x >= Width || y >= Height) {
                     return new TileInfo() {
                         x = x,
                         y = y,
                         layer = TileLayer.Wall
                     };
                 }
-                return _map[y * _width + x];
+                return _map[y * Width + x];
             }
             set {
-                if (x < 0 || y < 0 || x >= _width || y >= _height) return;
-                _map[y * _width + x] = value;
+                x += Width / 2;
+                y += Height / 2;
+                if (x < 0 || y < 0 || x >= Width || y >= Height) {
+                    return;
+                }
+                _map[y * Width + x] = value;
             }
         }
 
-        public DungeonInfo(Vector2Int center, int width, int height, int border, int seed) {
-            _center = center;
-            _width = width;
-            _height = height;
-            _border = border;
+        public DungeonInfo(int seed, Vector2Int center) {
             _seed = seed;
 
-            _map = new TileInfo[_width * _height];
-            for (int x = 0; x < _width; x++) {
-                for (int y = 0; y < _height; y++) {
-                    _map[y * _width + x] = new TileInfo() {
-                        layer = TileLayer.Floor,
-                        x = x,
-                        y = y,
-                    };
-                }
-            }
-
-            _rooms = new List<RoomInfo>();
+            Center = center;
+            _map = new TileInfo[0];
+            _rooms = new RoomInfo[0];
         }
 
-        public void AddRoom(RoomInfo room) {
-            _rooms.Add(room);
+        public void SetMap(TileInfo[] map, int width, int height, int radius, int falloffRadius) {
+            if (map.Length != width * height) {
+                throw new ArgumentException($"Width ({width}) * Height ({height}) does not equal Map Size ({map.Length})");
+            }
+            Width = width; 
+            Height = height;
+            Radius = radius;
+            FalloffRadius = falloffRadius;
+            _map = map;
         }
 
         public void SetMap(TileInfo[] map) {
-            if (map.Length != _map.Length) return;
+            if (map.Length != _map.Length) 
             for (int i = 0; i < _map.Length; i++) {
                 _map[i] = map[i];
             }
+        }
+
+        public void SetRooms(RoomInfo[] rooms) {
+            _rooms = rooms;
         }
 
         public IEnumerator<TileInfo> GetEnumerator() {
@@ -88,6 +91,12 @@ namespace DungeonGeneration {
         public BoundsInt bounds;
         public int margin;
         public int border;
+
+        public RoomInfo(RoomInfo old, Vector3Int position) {
+            margin = old.margin;
+            border = old.border;
+            bounds = new BoundsInt(position, old.bounds.size);
+        }
     }
 
     [Serializable]

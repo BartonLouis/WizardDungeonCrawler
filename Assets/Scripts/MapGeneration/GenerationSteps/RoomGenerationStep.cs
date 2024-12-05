@@ -1,6 +1,5 @@
 using Gameplay.Rooms;
 using Louis.Patterns.ServiceLocator;
-using Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +31,9 @@ namespace DungeonGeneration {
 
 
         Random _random;
-        DungeonInfo _dungeon;
+        Dungeon _dungeon;
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             _dungeon = dungeon;
             _random = new Random(dungeon.Seed);
 
@@ -78,7 +77,7 @@ namespace DungeonGeneration {
                             float xOverlap = Mathf.Max((rooms[j].bounds.size.x / 2) + (rooms[i].bounds.size.x / 2) - vec.x, 1);
                             float yOverlap = Mathf.Max((rooms[j].bounds.size.y / 2) + (rooms[i].bounds.size.y / 2) - vec.y, 1);
                             Vector2 moveVector = new Vector2(
-                                rooms[i].bounds.position.x > rooms[j].bounds.position.x ? xOverlap / 2 : -xOverlap / 2, 
+                                rooms[i].bounds.position.x > rooms[j].bounds.position.x ? xOverlap / 2 : -xOverlap / 2,
                                 rooms[i].bounds.position.y > rooms[j].bounds.position.y ? yOverlap / 2 : -xOverlap / 2);
                             overlapVectors[i] += moveVector;
                             overlapVectors[j] -= moveVector;
@@ -119,7 +118,7 @@ namespace DungeonGeneration {
             _dungeon.SetRooms(rooms.ToArray());
 
             // Step 6: Instantiate Room objects at each of the positions
-            ServiceLocator.TryGetService<IDungeonGeneratorService>(out var generatorService);
+            ServiceLocator.TryGetService<IDungeonCreationService>(out var generatorService);
             Transform parent = generatorService != null ? generatorService.Transform : null;
             foreach (var room in dungeon.Rooms) {
                 RoomCollider collider = Instantiate(_prefab);

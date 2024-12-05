@@ -26,7 +26,7 @@ namespace DungeonGeneration {
 
         Random _random;
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             _doubleMinWidth = 2 * _minRoomWidth;
             _doubleMinHeight = 2 * _minRoomHeight;
 

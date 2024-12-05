@@ -13,9 +13,9 @@ namespace DungeonGeneration {
         [SerializeField] int _corridorSize;
         [Tooltip("This is the margin around all rooms which corridors must be outside to be considered safe")]
         [SerializeField] int _marginOfSafety = 3;
-        DungeonInfo _dungeon;
+        Dungeon _dungeon;
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             _dungeon = dungeon;
             Vector2[] roomCenters = _dungeon.Rooms.Select(r => (Vector2)r.bounds.center).ToArray();
             Delaunator delaunator = new Delaunator(roomCenters.ToPoints());

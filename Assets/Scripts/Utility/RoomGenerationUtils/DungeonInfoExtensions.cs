@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Utils {
     public static class DungeonInfoExtensions {
 
-        public static bool IsWithinBorder(this DungeonInfo dungeon, int x, int y) {
+        public static bool IsWithinBorder(this Dungeon dungeon, int x, int y) {
             return (x >= dungeon.Border && x < dungeon.Width - dungeon.Border && y >= dungeon.Border && y < dungeon.Height - dungeon.Border);
         }
 
@@ -31,7 +31,7 @@ namespace Utils {
             };
         }
 
-        public static void DrawRoom(this DungeonInfo dungeon, RoomInfo room) {
+        public static void DrawRoom(this Dungeon dungeon, RoomInfo room) {
             BoundsInt bounds = room.bounds;
             int margin = room.margin;
             int border = room.border;

@@ -15,9 +15,9 @@ MonoBehaviour:
   _prefab: {fileID: 1556941093651757676, guid: ef6468b696b6ed046857e17ab38961d8, type: 3}
   _numRoomsPlaced: 10
   _maxRooms: 10
-  _placementRadius: 20
+  _placementRadius: 10
   _maxIterations: 200
-  _stepWeight: 0.1
+  _stepWeight: 0.05
   _roomBorder: 3
   _roomMargin: 3
   _minWidth: 20

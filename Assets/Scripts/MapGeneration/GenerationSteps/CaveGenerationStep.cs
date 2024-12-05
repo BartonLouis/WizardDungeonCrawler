@@ -19,9 +19,9 @@ namespace DungeonGeneration {
         NativeArray<TileInfo> nextIteration;
         NativeArray<RoomInfo> rooms;
 
-        DungeonInfo _dungeon;
+        Dungeon _dungeon;
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             _dungeon = dungeon;
             currentIteration = new NativeArray<TileInfo>(_dungeon.Map.Count, Allocator.TempJob);
             rooms = new NativeArray<RoomInfo>(_dungeon.Rooms.Count, Allocator.TempJob);
@@ -46,6 +46,7 @@ namespace DungeonGeneration {
         void Iterate() {
             nextIteration = new NativeArray<TileInfo>(currentIteration.Length, Allocator.TempJob);
             var iterateJob = new UpdateAutomotaJob {
+                outerThickness = _dungeon.Border,
                 width = _dungeon.Width,
                 height = _dungeon.Height,
                 generateWithinRoomBounds = _generateWithinRoomBounds,
@@ -84,7 +85,10 @@ namespace DungeonGeneration {
         public void Execute(int index) {
             TileInfo tile = currentState[index];
             // If tile is on the border, ignore
-            if (tile.x <= -width / 2 + outerThickness || tile.x >= width / 2 - outerThickness - 1 || tile.y <= -width / 2 + outerThickness || tile.y >= height / 2 - outerThickness - 1) {
+            if (tile.x <= -width / 2 + outerThickness 
+                || tile.x >= width / 2 - outerThickness - 1 
+                || tile.y <= -width / 2 + outerThickness 
+                || tile.y >= height / 2 - outerThickness - 1) {
                 nextState[index] = new TileInfo(tile, TileLayer.Wall);
                 return;
             }

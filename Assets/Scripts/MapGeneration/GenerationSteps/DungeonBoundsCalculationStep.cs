@@ -7,7 +7,7 @@ namespace DungeonGeneration {
         [SerializeField] int _falloffRadius;
         [SerializeField] int _safeZoneSize;
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             int radius = 0;
             foreach (RoomInfo room in dungeon.Rooms) {
                 float dist = Vector2.Distance(dungeon.Center, room.bounds.center);
@@ -30,7 +30,7 @@ namespace DungeonGeneration {
                     };
                 }
             }
-            dungeon.SetMap(tiles, width, height, radius, _falloffRadius);
+            dungeon.SetMap(tiles, width, height, radius, _falloffRadius, _safeZoneSize);
         }
     }
 }

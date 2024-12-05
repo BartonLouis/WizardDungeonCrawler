@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148381ed6bfee9b4cbb6245effb34af4, type: 3}
   m_Name: 02. Dungeon Bounds Generation
   m_EditorClassIdentifier: 
-  _falloffRadius: 0
-  _safeZoneSize: 20
+  _falloffRadius: 10
+  _safeZoneSize: 10

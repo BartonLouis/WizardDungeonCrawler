@@ -9,7 +9,7 @@ namespace DungeonGeneration {
     public class FillDisconnectedPocketsStep : AbstractGenerationStep {
 
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             HashSet<TileInfo> connectedTiles = new HashSet<TileInfo>();
             RoomInfo someRoom = dungeon.Rooms[0];
             TileInfo startTile = dungeon[(int)someRoom.bounds.center.x, (int)someRoom.bounds.center.y];

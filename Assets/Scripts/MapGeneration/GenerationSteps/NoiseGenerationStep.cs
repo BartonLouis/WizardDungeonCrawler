@@ -17,7 +17,7 @@ namespace DungeonGeneration {
         [SerializeField] float _wallDensity;
 
 
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             Random random = new(dungeon.Seed);
             NativeArray<TileInfo> tiles = new NativeArray<TileInfo>(dungeon.Map.Count, Allocator.TempJob);
             NativeArray<uint> seeds = new NativeArray<uint>(dungeon.Map.Count, Allocator.TempJob);

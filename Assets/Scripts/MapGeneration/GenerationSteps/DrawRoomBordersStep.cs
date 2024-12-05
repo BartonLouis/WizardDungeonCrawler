@@ -5,7 +5,7 @@ namespace DungeonGeneration {
 
     [CreateAssetMenu(menuName = "Dungeon Generation/Generation Step/Draw Rooms Step")]
     public class DrawRoomBordersStep : AbstractGenerationStep {
-        public override void Generate(DungeonInfo dungeon) {
+        public override void Generate(Dungeon dungeon) {
             foreach(RoomInfo room in dungeon.Rooms) {
                 dungeon.DrawRoom(room);
             }

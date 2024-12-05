@@ -2,14 +2,10 @@ using Louis.Patterns.ServiceLocator;
 using Managers;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace DungeonGeneration {
-    public interface IDungeonGeneratorService : IService {
-        public Transform Transform { get; }
-        public void Generate(int seed);
-        public void Generate();
-    }
 
     [RequireComponent(typeof(TilemapVisualiser))]
     public class DungeonGenerator : MonoBehaviour, IDungeonGeneratorService {
@@ -42,18 +38,27 @@ namespace DungeonGeneration {
 
         public void Generate() {
             ServiceLocator.Register<IDungeonGeneratorService>(this);
-            if (Application.isPlaying) {
-                foreach (Transform child in transform) {
-                    Destroy(child.gameObject);
+
+            // Find any existing dungeons and destroy them to make sure there is only one
+            ServiceLocator.TryGetService<IDungeonCreationService>(out var oldDungeon);
+            if (oldDungeon == null) {
+                GameObject old = GameObject.Find("Dungeon");
+                if (old != null) {
+                    old.TryGetComponent(out oldDungeon);
                 }
-            } else {
-                for (int i = transform.childCount; i > 0; --i) {
-                    DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+            if (oldDungeon != null && oldDungeon.Transform != null) {
+                if (Application.isPlaying) {
+                    Destroy(oldDungeon.Transform.gameObject);
+                } else {
+                    DestroyImmediate(oldDungeon.Transform.gameObject);
                 }
             }
 
             DateTime start = DateTime.Now;
-            DungeonInfo dungeon = new DungeonInfo(_seed, Vector2Int.zero);
+            GameObject go = new GameObject("Dungeon");
+            Dungeon dungeon = go.AddComponent<Dungeon>();
+            dungeon.Init(_seed, Vector2Int.zero);
             foreach (var step in _generationSteps) {
                 step.Generate(dungeon);
             }
@@ -66,10 +71,9 @@ namespace DungeonGeneration {
             DateTime end = DateTime.Now;
             Logging.Log(this, $"Generated a dungeon with Size: {dungeon.Width}, {dungeon.Height} in {(end - start).Seconds}.{(end - start).Milliseconds} seconds");
         }
-
     }
 
     public interface IGenerationStep {
-        public void Generate(DungeonInfo dungeon);
+        public void Generate(Dungeon dungeon);
     }
 }

@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454d90627fea9034abae6f78b4fe3082, type: 3}
   m_Name: 01. Room Generation
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 1556941093651757676, guid: ef6468b696b6ed046857e17ab38961d8, type: 3}
   _numRoomsPlaced: 10
   _maxRooms: 10
   _placementRadius: 20
-  _maxIterations: 100
+  _maxIterations: 200
   _stepWeight: 0.1
   _roomBorder: 3
-  _roomMargin: 1
+  _roomMargin: 3
   _minWidth: 20
   _maxWidth: 35
   _minHeight: 20

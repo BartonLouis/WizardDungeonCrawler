@@ -1,5 +1,6 @@
 using Gameplay.Rooms;
 using Louis.Patterns.ServiceLocator;
+using Managers;
 using UnityEngine;
 
 namespace DungeonGeneration {

@@ -1,5 +1,6 @@
 using DelaunatorSharp;
 using DelaunatorSharp.Unity.Extensions;
+using Managers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace DungeonGeneration {
     public class CorridorGenerationStep : AbstractGenerationStep {
         [Header("Settings")]
         [SerializeField] int _corridorSize;
+        [Tooltip("This is the margin around all rooms which corridors must be outside to be considered safe")]
+        [SerializeField] int _marginOfSafety = 3;
         DungeonInfo _dungeon;
 
         public override void Generate(DungeonInfo dungeon) {
@@ -23,11 +26,29 @@ namespace DungeonGeneration {
 
                 RoomInfo start = _dungeon.Rooms.FirstOrDefault(r => r.bounds.center == (Vector3)p1);
                 RoomInfo end = _dungeon.Rooms.FirstOrDefault(r => r.bounds.center == (Vector3)p2);
-                corridors.Add(new CorridorInfo() {
+
+                CorridorInfo corridor = new CorridorInfo() {
                     start = start,
                     end = end,
-                });
+                };
+
+                bool intersectsAny = false;
+                foreach (var room in dungeon.Rooms) {
+                    if (room == start || room == end) {
+                        continue;
+                    }
+                    if (room.bounds.IntersectedByLine((start.bounds.center, end.bounds.center), _marginOfSafety)) {
+                        intersectsAny = true;
+                        break;
+                    }
+                }
+                if (!intersectsAny) {
+                    corridors.Add(corridor);
+                }
             });
+
+
+
             foreach (var corridor in corridors) {
                 DrawCorridor(corridor);
             }
@@ -53,7 +74,7 @@ namespace DungeonGeneration {
             Bresenham(corridor.start.bounds.center, startDoor);
             Bresenham(startDoor, endDoor);
             Bresenham(endDoor, corridor.end.bounds.center);
-            
+
         }
 
         void Bresenham(Vector2 start, Vector2 end) {

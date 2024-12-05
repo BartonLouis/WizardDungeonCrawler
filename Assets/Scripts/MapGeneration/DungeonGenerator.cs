@@ -1,4 +1,6 @@
 using Louis.Patterns.ServiceLocator;
+using Managers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +52,7 @@ namespace DungeonGeneration {
                 }
             }
 
-
+            DateTime start = DateTime.Now;
             DungeonInfo dungeon = new DungeonInfo(_seed, Vector2Int.zero);
             foreach (var step in _generationSteps) {
                 step.Generate(dungeon);
@@ -61,6 +63,8 @@ namespace DungeonGeneration {
             foreach (var tile in dungeon) {
                 _visualiser.PaintSingleTile(new Vector2Int(tile.x, tile.y), tile.layer);
             }
+            DateTime end = DateTime.Now;
+            Logging.Log(this, $"Generated a dungeon with Size: {dungeon.Width}, {dungeon.Height} in {(end - start).Seconds}.{(end - start).Milliseconds} seconds");
         }
 
     }

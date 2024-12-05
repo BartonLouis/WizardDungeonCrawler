@@ -1,3 +1,5 @@
+using Gameplay.Rooms;
+using Louis.Patterns.ServiceLocator;
 using Managers;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ using Random = System.Random;
 namespace DungeonGeneration {
     [CreateAssetMenu(menuName = "Dungeon Generation/Generation Step/Tiny Keep Room Generation Step")]
     public class RoomGenerationStep : AbstractGenerationStep {
+        [Header("References")]
+        [SerializeField] RoomCollider _prefab;
 
         [Header("Settings")]
         [SerializeField] int _numRoomsPlaced;
@@ -24,6 +28,7 @@ namespace DungeonGeneration {
         [SerializeField] int _maxWidth;
         [SerializeField] int _minHeight;
         [SerializeField] int _maxHeight;
+
 
 
         Random _random;
@@ -110,8 +115,17 @@ namespace DungeonGeneration {
                 rooms[i] = new RoomInfo(rooms[i], rooms[i].bounds.position - offset);
             }
 
-            //Step 5: Draw Rooms on the map
+            // Step 5: Draw Rooms on the map
             _dungeon.SetRooms(rooms.ToArray());
+
+            // Step 6: Instantiate Room objects at each of the positions
+            ServiceLocator.TryGetService<IDungeonGeneratorService>(out var generatorService);
+            Transform parent = generatorService != null ? generatorService.Transform : null;
+            foreach (var room in dungeon.Rooms) {
+                RoomCollider collider = Instantiate(_prefab);
+                collider.transform.parent = parent;
+                collider.Init(room);
+            }
         }
     }
 }

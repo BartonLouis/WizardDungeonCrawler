@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 05. Corridor Generation
   m_EditorClassIdentifier: 
   _corridorSize: 2
+  _marginOfSafety: 1

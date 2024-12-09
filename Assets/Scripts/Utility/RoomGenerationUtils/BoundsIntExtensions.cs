@@ -22,16 +22,6 @@ namespace Utils {
             return false;
         }
 
-
-        public static bool IntersectedByLine(this BoundsInt bounds, (Vector2, Vector2) line) {
-            return new (Vector2, Vector2)[4] {
-                (new Vector2(bounds.min.x, bounds.min.y), new Vector2(bounds.min.x, bounds.max.y)),
-                (new Vector2(bounds.min.x, bounds.min.y), new Vector2(bounds.max.x, bounds.min.y)),
-                (new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y)),
-                (new Vector2(bounds.max.x, bounds.min.y), new Vector2(bounds.max.x, bounds.max.y)),
-            }.Any(s => s.Intersects(line));
-        }
-
         public static bool IntersectedByLine(this BoundsInt bounds, (Vector2, Vector2) line, int marginOfSafety) {
             BoundsInt newBounds = new BoundsInt(bounds.position - new Vector3Int(marginOfSafety, marginOfSafety), bounds.size + new Vector3Int(2 * marginOfSafety, 2 * marginOfSafety));
             return new (Vector2, Vector2)[4] {
@@ -39,7 +29,7 @@ namespace Utils {
                 (new Vector2(newBounds.min.x, newBounds.min.y), new Vector2(newBounds.max.x, newBounds.min.y)),
                 (new Vector2(newBounds.min.x, newBounds.max.y), new Vector2(newBounds.max.x, newBounds.max.y)),
                 (new Vector2(newBounds.max.x, newBounds.min.y), new Vector2(newBounds.max.x, newBounds.max.y)),
-            }.Any(s => s.Intersects(line));
+            }.Any(s => line.Intersects(s));
         }
 
         public static bool Intersects(this (Vector2, Vector2) l1, (Vector2, Vector2) l2) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -18,5 +19,12 @@ namespace DungeonGeneration {
         public override readonly bool Equals(object obj) => obj is RoomInfo other && other.GetHashCode() == GetHashCode();
         public static bool operator ==(RoomInfo lhs, RoomInfo rhs) { return lhs.Equals(rhs); }
         public static bool operator !=(RoomInfo lhs, RoomInfo rhs) { return !lhs.Equals(rhs); }
+    }
+
+    public enum Side {
+        Top,
+        Bottom, 
+        Left, 
+        Right
     }
 }

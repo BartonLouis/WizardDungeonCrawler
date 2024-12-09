@@ -19,15 +19,15 @@ namespace Utils {
             }
         }
 
-        public static Vector2[] GenerateDoors(this RoomInfo room) {
+        public static Vector2 GenerateDoor(this RoomInfo room, Side side) {
             float halfWidth = room.bounds.size.x / 2f;
             float halfHeight = room.bounds.size.y / 2f;
-            Vector2 center = room.bounds.center;
-            return new Vector2[4] {
-                center + new Vector2(0, halfHeight),
-                center + new Vector2(0, -halfHeight),
-                center + new Vector2(halfWidth, 0),
-                center + new Vector2(-halfWidth, 0)
+            return room.bounds.center + side switch {
+                Side.Top => new Vector3(0, halfHeight),
+                Side.Bottom => new Vector3(0, -halfHeight),
+                Side.Left => new Vector3(-halfWidth, 0),
+                Side.Right => new Vector3(halfWidth, 0),
+                _ => Vector3.zero,
             };
         }
 
@@ -50,6 +50,12 @@ namespace Utils {
 
         public static bool AnyIntersect(this IReadOnlyList<RoomInfo> rooms) {
             return BoundsIntExtensions.AnyIntersect(rooms.Select(r => r.bounds).ToList());
+        }
+
+        public static float Length(this CorridorInfo corridor, Dungeon dungeon) {
+            RoomInfo r1 = dungeon.Rooms[corridor.startRoomIndex];
+            RoomInfo r2 = dungeon.Rooms[corridor.endRoomIndex];
+            return Vector2.Distance(r1.bounds.center, r2.bounds.center);
         }
     }
 }

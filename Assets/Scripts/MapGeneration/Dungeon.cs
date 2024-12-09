@@ -14,6 +14,7 @@ namespace DungeonGeneration {
 
         TileInfo[] _map;
         RoomInfo[] _rooms;
+        CorridorInfo[] _corridors;
         public Transform Transform => _transform;
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -24,6 +25,7 @@ namespace DungeonGeneration {
         public int Seed => _seed;
         public IReadOnlyList<TileInfo> Map => _map;
         public IReadOnlyList<RoomInfo> Rooms => _rooms;
+        public IReadOnlyList<CorridorInfo> Corridors => _corridors;
 
         public TileInfo this[int x, int y] {
             get {
@@ -67,6 +69,7 @@ namespace DungeonGeneration {
             Center = center;
             _map = new TileInfo[0];
             _rooms = new RoomInfo[0];
+            _corridors = new CorridorInfo[0];
         }
 
         public void SetMap(TileInfo[] map, int width, int height, int radius, int falloffRadius, int border) {
@@ -90,6 +93,10 @@ namespace DungeonGeneration {
 
         public void SetRooms(RoomInfo[] rooms) {
             _rooms = rooms;
+        }
+
+        public void SetCorridors(CorridorInfo[] corridors) {
+            _corridors = corridors;
         }
 
         public IEnumerator<TileInfo> GetEnumerator() {

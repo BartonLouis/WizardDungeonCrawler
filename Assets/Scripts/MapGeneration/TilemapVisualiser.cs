@@ -1,4 +1,3 @@
-using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,7 +28,7 @@ namespace DungeonGeneration {
                 _ => (_holeTilemap, _holeTile)
             };
             var tilePos = tilemap.WorldToCell((Vector3Int)position);
-            
+
             tilemap.SetTile(tilePos, tile);
         }
     }

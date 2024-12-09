@@ -60,7 +60,7 @@ namespace DungeonGeneration {
         }
 
         void BrushOnPoint(Vector2Int point) {
-            int min = -Mathf.FloorToInt(_corridorSize / 2f);
+            int min = Mathf.CeilToInt(-_corridorSize / 2f);
             int max = Mathf.CeilToInt(_corridorSize / 2f);
             for (int x = min; x < max; x++) {
                 for (int y = min; y < max; y++) {

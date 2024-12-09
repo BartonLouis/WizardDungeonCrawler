@@ -1,5 +1,6 @@
 ﻿using Louis.Patterns.ServiceLocator;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -28,5 +29,6 @@ namespace DungeonGeneration {
         public IReadOnlyList<TileInfo> Map { get; }
         public IReadOnlyList<RoomInfo> Rooms { get; }
         public TileInfo this[int x, int y] { get; }
+        public void ShowRoomLabels(Transform parent, TextMeshProUGUI prefab);
     }
 }

@@ -2,7 +2,7 @@ using Louis.Patterns.ServiceLocator;
 using Managers;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -11,6 +11,10 @@ namespace DungeonGeneration {
     public class DungeonGenerator : MonoBehaviour, IDungeonGeneratorService {
 
         public Transform Transform => transform;
+        [Header("References")]
+        [SerializeField] Transform _labelCanvas;
+        [SerializeField] TextMeshProUGUI _labelPrefab;
+
         [Header("Settings")]
         [SerializeField] int _seed;
 
@@ -60,7 +64,11 @@ namespace DungeonGeneration {
             Dungeon dungeon = go.AddComponent<Dungeon>();
             dungeon.Init(_seed, Vector2Int.zero);
             foreach (var step in _generationSteps) {
-                step.Generate(dungeon);
+                try {
+                    step.Generate(dungeon);
+                } catch (Exception ex) {
+                    Logging.Log(this, $"Step {step.name} Failed generation Step: {ex.StackTrace}", LogLevel.Error);
+                }
             }
 
             _visualiser = GetComponent<TilemapVisualiser>();
@@ -69,6 +77,8 @@ namespace DungeonGeneration {
                 _visualiser.PaintSingleTile(new Vector2Int(tile.x, tile.y), tile.layer);
             }
             DateTime end = DateTime.Now;
+
+            dungeon.ShowRoomLabels(_labelCanvas, _labelPrefab);
             Logging.Log(this, $"Generated a dungeon with Size: {dungeon.Width}, {dungeon.Height} in {(end - start).Seconds}.{(end - start).Milliseconds} seconds");
         }
     }

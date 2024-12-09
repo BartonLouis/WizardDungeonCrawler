@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -8,10 +7,12 @@ namespace DungeonGeneration {
         public BoundsInt bounds;
         public int margin;
         public int border;
+        public RoomType roomType;
 
         public RoomInfo(RoomInfo old, Vector3Int position) {
             margin = old.margin;
             border = old.border;
+            roomType = old.roomType;
             bounds = new BoundsInt(position, old.bounds.size);
         }
 
@@ -23,8 +24,8 @@ namespace DungeonGeneration {
 
     public enum Side {
         Top,
-        Bottom, 
-        Left, 
+        Bottom,
+        Left,
         Right
     }
 }

@@ -1,6 +1,5 @@
 using DelaunatorSharp;
 using DelaunatorSharp.Unity.Extensions;
-using Managers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,6 +31,9 @@ namespace DungeonGeneration {
 
                 RoomInfo startRoom = _dungeon.Rooms[startRoomIndex];
                 RoomInfo endRoom = _dungeon.Rooms[endRoomIndex];
+                if (startRoom.roomType != RoomType.Normal && endRoom.roomType != RoomType.Normal) {
+                    return;
+                }
 
                 CorridorInfo corridor = CreateCorridor(startRoomIndex, endRoomIndex);
                 if (corridor == default) return;
@@ -63,8 +65,8 @@ namespace DungeonGeneration {
             Vector2 startDoor;
             Vector2 endDoor;
             float shortest = float.MaxValue;
-            foreach(Side s1 in EnumUtils.GetValues<Side>()) {
-                foreach(Side s2 in EnumUtils.GetValues<Side>()) {
+            foreach (Side s1 in EnumUtils.GetValues<Side>()) {
+                foreach (Side s2 in EnumUtils.GetValues<Side>()) {
                     Vector2 d1 = startRoom.GenerateDoor(s1);
                     Vector2 d2 = endRoom.GenerateDoor(s2);
                     float dist = Vector2.Distance(d1, d2);

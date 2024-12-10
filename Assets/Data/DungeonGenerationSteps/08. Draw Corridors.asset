@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe891add8879a5c42a2bd5a16b575911, type: 3}
   m_Name: 08. Draw Corridors
   m_EditorClassIdentifier: 
-  _corridorSize: 3
+  _corridorSize: 2

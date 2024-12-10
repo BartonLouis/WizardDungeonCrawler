@@ -35,21 +35,6 @@ namespace DungeonGeneration {
         }
 
         public readonly bool CanAddDoor(DoorSide doorToAdd) {
-            Debug.Log($"Checking {roomType} if it can add more doors\n" +
-                $"Number of open doors {openDoors.CountFlags()}\n" +
-                $"Open Doors: {openDoors}\n" +
-                $"Max Number of Open Doors: {maxOpenDoors}\n" +
-                $"Door To Add: {doorToAdd}");
-            if (openDoors.CountFlags() < maxOpenDoors) {
-                Debug.Log($"{roomType} Can Add Door as there are fewer doors open than the maximum");
-                return true;
-            } else if (openDoors.CountFlags() == maxOpenDoors && openDoors.HasFlag(doorToAdd)) {
-                Debug.Log($"{roomType} Can Add Door as there are an equal number of doors as the max but this door is already open");
-                return true;
-            }
-            Debug.Log($"{roomType} Cannot Add Door {doorToAdd} as Max Open Doors is {maxOpenDoors} and Currently open doors are {openDoors}\n" +
-                $"Number of open Doors = {openDoors.CountFlags()}");
-            return false;
             return ((openDoors.CountFlags() < maxOpenDoors) 
                 || (openDoors.CountFlags() == maxOpenDoors && openDoors.HasFlag(doorToAdd)));
         }

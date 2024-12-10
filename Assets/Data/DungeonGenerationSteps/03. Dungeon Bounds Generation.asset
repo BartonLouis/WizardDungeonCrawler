@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 03. Dungeon Bounds Generation
   m_EditorClassIdentifier: 
   _falloffRadius: 10
-  _safeZoneSize: 10
+  _safeZoneSize: 20

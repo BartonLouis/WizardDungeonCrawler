@@ -73,6 +73,7 @@ namespace DungeonGeneration {
 
             _visualiser = GetComponent<TilemapVisualiser>();
             _visualiser.Clear();
+            _visualiser.Fill(TileLayer.Floor, new Vector3Int(-dungeon.Width / 2, -dungeon.Height / 2), new Vector3Int(dungeon.Width / 2, dungeon.Height / 2));
             foreach (var tile in dungeon) {
                 _visualiser.PaintSingleTile(new Vector2Int(tile.x, tile.y), tile.layer);
             }

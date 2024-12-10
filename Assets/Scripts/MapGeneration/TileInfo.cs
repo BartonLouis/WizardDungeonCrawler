@@ -13,6 +13,10 @@ namespace DungeonGeneration {
             this.layer = layer;
         }
 
+        public void SetLayer(TileLayer layer) {
+            this.layer = layer;
+        }
+
         public override readonly int GetHashCode() => HashCode.Combine(x, y);
         public override readonly bool Equals(object obj) => obj is TileInfo other && other.GetHashCode() == GetHashCode();
     }

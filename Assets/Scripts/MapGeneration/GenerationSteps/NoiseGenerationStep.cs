@@ -56,13 +56,14 @@ namespace DungeonGeneration {
             TileInfo tile = map[index];
             float dist = new Vector2(tile.x, tile.y).magnitude;
             if (dist < innerRadius) {
-                map[index] = new TileInfo(tile, rnd.NextFloat() < wallDensity ? TileLayer.Wall : TileLayer.Floor);
+                tile.layer = rnd.NextFloat() < wallDensity ? TileLayer.Wall : TileLayer.Floor;
             } else if (dist < innerRadius + innerRadius) {
                 float lerpedThreshold = math.lerp(wallDensity, 1, (dist - innerRadius) / outerRadius);
-                map[index] = new TileInfo(tile, rnd.NextFloat() < lerpedThreshold ? TileLayer.Wall : TileLayer.Floor);
+                tile.layer = rnd.NextFloat() < lerpedThreshold ? TileLayer.Wall : TileLayer.Floor;
             } else {
-                map[index] = new TileInfo(tile, TileLayer.Wall);
+                tile.layer = TileLayer.Wall;
             }
+            map[index] = tile;
         }
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d72b2db27bb2f469b61e9b61f31b6d, type: 3}
   m_Name: 02. Room Separation
   m_EditorClassIdentifier: 
-  _maxIterations: 200
+  _maxIterations: 50
   _stepWeight: 5

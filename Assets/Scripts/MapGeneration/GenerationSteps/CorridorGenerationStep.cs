@@ -71,6 +71,7 @@ namespace DungeonGeneration {
             float shortest = float.MaxValue;
             foreach (DoorSide s1 in EnumUtils.GetValues<DoorSide>()) {
                 foreach (DoorSide s2 in EnumUtils.GetValues<DoorSide>()) {
+                    if (s1 == s2) continue;
                     Vector2 d1 = startRoom.GenerateDoor(s1);
                     Vector2 d2 = endRoom.GenerateDoor(s2);
                     float dist = Vector2.Distance(d1, d2);

@@ -58,7 +58,6 @@ namespace DungeonGeneration {
                     DestroyImmediate(oldDungeon.Transform.gameObject);
                 }
             }
-
             DateTime start = DateTime.Now;
             GameObject go = new GameObject("Dungeon");
             Dungeon dungeon = go.AddComponent<Dungeon>();

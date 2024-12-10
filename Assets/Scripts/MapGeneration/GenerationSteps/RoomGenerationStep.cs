@@ -70,7 +70,6 @@ namespace DungeonGeneration {
             BoundsInt bounds = new(roomCenter - new Vector3Int(width / 2, height / 2), new Vector3Int(width, height));
             RoomInfo room = new(bounds, _roomMargin, _roomBorder, roomChoice.roomType, roomChoice.maxOpenDoors);
             _rooms.Add(room);
-
         }
 
         private void OnValidate() {

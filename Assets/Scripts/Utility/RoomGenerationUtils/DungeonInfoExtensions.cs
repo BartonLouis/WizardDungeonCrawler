@@ -31,31 +31,6 @@ namespace Utils {
             };
         }
 
-        public static void DrawRoom(this Dungeon dungeon, RoomInfo room) {
-            BoundsInt bounds = room.bounds;
-            int margin = room.margin;
-            int border = room.border;
-            int minX = bounds.min.x + margin;
-            int maxX = bounds.max.x - margin;
-            int minY = bounds.min.y + margin;
-            int maxY = bounds.max.y - margin;
-            int minXBorder = bounds.min.x + border + margin;
-            int maxXBorder = bounds.max.x - border - margin - 1;
-            int minYBorder = bounds.min.y + border + margin;
-            int maxYBorder = bounds.max.y - border - margin - 1;
-            for (int x = minX; x < maxX; x++) {
-                for (int y = minY; y < maxY; y++) {
-                    TileInfo info = dungeon[x, y];
-                    TileLayer layer = (x < minXBorder
-                        || x > maxXBorder
-                        || y < minYBorder
-                        || y > maxYBorder)
-                        ? TileLayer.Wall : TileLayer.Floor;
-                    dungeon[x, y] = new TileInfo(info, layer);
-                }
-            }
-        }
-
         public static bool AnyIntersect(this IReadOnlyList<RoomInfo> rooms) {
             return BoundsIntExtensions.AnyIntersect(rooms.Select(r => r.bounds).ToList());
         }

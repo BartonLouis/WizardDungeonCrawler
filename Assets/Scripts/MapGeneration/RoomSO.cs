@@ -1,5 +1,4 @@
 using CustomAttributes;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -8,6 +7,7 @@ namespace DungeonGeneration {
         [ScriptableObjectId]
         public string roomId;
         public RoomType roomType;
+        public int maxOpenDoors;
 
         public string roomName;
         public int width;
@@ -16,10 +16,10 @@ namespace DungeonGeneration {
 
 
     public enum RoomType {
-        Normal      = 0,
-        Spawn       = 1,
-        Shop        = 2,
-        BossFight   = 4,
-        Treasure    = 8
+        Normal = 0,
+        Spawn = 1,
+        Shop = 2,
+        BossFight = 3,
+        Treasure = 4
     }
 }

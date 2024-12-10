@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomId: 66c3f96e-59b6-4b2f-aca1-514f3d001444
   roomType: 1
+  maxOpenDoors: 1
   roomName: Spawn
   width: 7
   height: 15

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607413ae74069e546b0cae59fd2ab24a, type: 3}
   m_Name: 07. Reduce Corridors
   m_EditorClassIdentifier: 
-  _connectivity: 1
+  _connectivity: 0.1

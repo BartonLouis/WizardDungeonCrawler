@@ -7,12 +7,12 @@ namespace DungeonGeneration {
     public struct CorridorInfo {
         public int startRoomIndex;
         public int endRoomIndex;
-        public Side startSide;
-        public Side endSide;
+        public DoorSide startSide;
+        public DoorSide endSide;
         public Vector2 startDoor;
         public Vector2 endDoor;
 
-        public CorridorInfo(int startRoomIndex, int endRoomIndex, Side startSide, Side endSide, Dungeon dungeon) {
+        public CorridorInfo(int startRoomIndex, int endRoomIndex, DoorSide startSide, DoorSide endSide, Dungeon dungeon) {
             this.startRoomIndex = startRoomIndex;
             this.endRoomIndex = endRoomIndex;
             this.startSide = startSide;

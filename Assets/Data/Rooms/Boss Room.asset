@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Boss Room
   m_EditorClassIdentifier: 
   roomId: 66c3f96e-59b6-4b2f-aca1-514f3d001444
-  roomType: 4
+  roomType: 3
+  maxOpenDoors: 1
   roomName: Boss
   width: 17
   height: 17

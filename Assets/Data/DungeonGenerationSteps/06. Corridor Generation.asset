@@ -12,4 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da569be79a24c874abcc5fd1d2317599, type: 3}
   m_Name: 06. Corridor Generation
   m_EditorClassIdentifier: 
-  _marginOfSafety: 0
+  _marginOfSafety: 1
+  roomConnections:
+    valueNames:
+    - Normal
+    - Spawn
+    - Shop
+    - BossFight
+    - Treasure
+    matrix:
+    - row: 0101010101
+    - row: 0000010101
+    - row: 0101010101
+    - row: 0001010101
+    - row: 0001010101

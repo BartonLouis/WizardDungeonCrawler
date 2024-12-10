@@ -19,14 +19,14 @@ namespace Utils {
             }
         }
 
-        public static Vector2 GenerateDoor(this RoomInfo room, Side side) {
+        public static Vector2 GenerateDoor(this RoomInfo room, DoorSide side) {
             float halfWidth = room.bounds.size.x / 2f;
             float halfHeight = room.bounds.size.y / 2f;
             return room.bounds.center + side switch {
-                Side.Top => new Vector3(0, halfHeight),
-                Side.Bottom => new Vector3(0, -halfHeight),
-                Side.Left => new Vector3(-halfWidth, 0),
-                Side.Right => new Vector3(halfWidth, 0),
+                DoorSide.Top => new Vector3(0, halfHeight),
+                DoorSide.Bottom => new Vector3(0, -halfHeight),
+                DoorSide.Left => new Vector3(-halfWidth, 0),
+                DoorSide.Right => new Vector3(halfWidth, 0),
                 _ => Vector3.zero,
             };
         }

@@ -1,3 +1,4 @@
+using CustomTypes;
 using DelaunatorSharp;
 using DelaunatorSharp.Unity.Extensions;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace DungeonGeneration {
         [Header("Settings")]
         [Tooltip("This is the margin around all rooms which corridors must be outside to be considered safe")]
         [SerializeField] int _marginOfSafety = 3;
+
+
+        public EnumMatrix roomConnections = new();
         Dungeon _dungeon;
 
         public override void Generate(Dungeon dungeon) {
@@ -31,7 +35,7 @@ namespace DungeonGeneration {
 
                 RoomInfo startRoom = _dungeon.Rooms[startRoomIndex];
                 RoomInfo endRoom = _dungeon.Rooms[endRoomIndex];
-                if (startRoom.roomType != RoomType.Normal && endRoom.roomType != RoomType.Normal) {
+                if (!roomConnections[startRoom.roomType, endRoom.roomType]) {
                     return;
                 }
 
@@ -60,13 +64,13 @@ namespace DungeonGeneration {
         CorridorInfo CreateCorridor(int startRoomIndex, int endRoomIndex) {
             RoomInfo startRoom = _dungeon.Rooms[startRoomIndex];
             RoomInfo endRoom = _dungeon.Rooms[endRoomIndex];
-            Side startSide = Side.Top;
-            Side endSide = Side.Top;
+            DoorSide startSide = DoorSide.Top;
+            DoorSide endSide = DoorSide.Top;
             Vector2 startDoor;
             Vector2 endDoor;
             float shortest = float.MaxValue;
-            foreach (Side s1 in EnumUtils.GetValues<Side>()) {
-                foreach (Side s2 in EnumUtils.GetValues<Side>()) {
+            foreach (DoorSide s1 in EnumUtils.GetValues<DoorSide>()) {
+                foreach (DoorSide s2 in EnumUtils.GetValues<DoorSide>()) {
                     Vector2 d1 = startRoom.GenerateDoor(s1);
                     Vector2 d2 = endRoom.GenerateDoor(s2);
                     float dist = Vector2.Distance(d1, d2);

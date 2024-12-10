@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Treasure
   m_EditorClassIdentifier: 
   roomId: 66c3f96e-59b6-4b2f-aca1-514f3d001444
-  roomType: 8
+  roomType: 4
+  maxOpenDoors: 1
   roomName: Treasure
   width: 7
   height: 5

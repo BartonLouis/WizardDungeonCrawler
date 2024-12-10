@@ -1,4 +1,3 @@
-using Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,16 +67,8 @@ namespace DungeonGeneration {
             int width = roomChoice.width + 2 * _roomBorder + 2 * _roomMargin;
             int height = roomChoice.height + 2 * _roomBorder + 2 * _roomMargin;
 
-            BoundsInt bounds = new BoundsInt(
-                roomCenter - new Vector3Int(width / 2, height / 2),
-                new Vector3Int(width, height)
-                );
-            RoomInfo room = new RoomInfo() {
-                bounds = bounds,
-                border = _roomBorder,
-                margin = _roomMargin,
-                roomType = roomChoice.roomType
-            };
+            BoundsInt bounds = new(roomCenter - new Vector3Int(width / 2, height / 2), new Vector3Int(width, height));
+            RoomInfo room = new(bounds, _roomMargin, _roomBorder, roomChoice.roomType, roomChoice.maxOpenDoors);
             _rooms.Add(room);
 
         }

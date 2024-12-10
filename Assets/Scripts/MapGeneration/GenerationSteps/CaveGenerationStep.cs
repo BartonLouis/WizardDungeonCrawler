@@ -89,7 +89,6 @@ namespace DungeonGeneration {
                 || tile.x >= width / 2 - outerThickness - 1 
                 || tile.y <= -width / 2 + outerThickness 
                 || tile.y >= height / 2 - outerThickness - 1) {
-                tile.layer = TileLayer.Wall;
                 nextState[index] = tile;
                 return;
             }

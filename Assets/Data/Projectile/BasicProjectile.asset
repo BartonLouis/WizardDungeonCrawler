@@ -15,12 +15,13 @@ MonoBehaviour:
   baseDamage: 10
   baseSpeed: 100
   lifetime: 5
+  samplesPerSecond: 0
   collidesWith:
     serializedVersion: 2
     m_Bits: 320
   projectileRadius: 0.25
   colliderRadius: 0.25
-  maxVerticalOffset: 0
+  maxVerticalOffset: 20
   verticalOffsetCurve:
     serializedVersion: 2
     m_Curve:

@@ -1,7 +1,9 @@
-using UnityEngine;
+using Gameplay.Projectiles;
 
 namespace Gameplay {
-    public interface IProjectileOwner { }
+    public interface IProjectileOwner {
+        public void ReportProjectileHitInfo(HitInfo hitInfo);
+    }
 
 
     public interface IDamageable {

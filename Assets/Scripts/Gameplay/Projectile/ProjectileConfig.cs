@@ -1,3 +1,4 @@
+using CustomTypes;
 using UnityEngine;
 
 namespace Gameplay.Projectiles {
@@ -7,7 +8,9 @@ namespace Gameplay.Projectiles {
         public float baseDamage;
         public float baseSpeed;
         public float lifetime = 1;
+        public int samplesPerSecond;
         public LayerMask collidesWith;
+
 
         [Header("Size")]
         public float projectileRadius = 0.25f;
@@ -23,7 +26,6 @@ namespace Gameplay.Projectiles {
         public float lightIntensity;
         public float lightInnerRadius;
         public float lightOuterRadius;
-
 
         private void OnValidate() {
             if (lifetime <= 0) lifetime = 1;

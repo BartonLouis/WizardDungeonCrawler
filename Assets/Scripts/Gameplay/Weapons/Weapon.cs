@@ -10,7 +10,7 @@ namespace Gameplay.Weapons {
         [Header("Settings")]
         [SerializeField] Transform _firePoint;
         [SerializeField] WeaponConfig _config;
-        IProjectilePoolService _poolService;
+        IProjectileManager _projectileManager;
         IProjectileOwner _owner;
 
         float _cooldown;
@@ -18,7 +18,7 @@ namespace Gameplay.Weapons {
 
         private void Start() {
             ServiceLocator.TryGetService<IWeaponMountService>(out var weaponMountService);
-            ServiceLocator.TryGetService<IProjectilePoolService>(out _poolService);
+            ServiceLocator.TryGetService<IProjectileManager>(out _projectileManager);
             _owner = weaponMountService?.MountWeapon(this);
             _firePoint.localPosition = _config.firePointOffset;
         }
@@ -47,8 +47,7 @@ namespace Gameplay.Weapons {
 
         void Fire() {
             _cooldown = 1f / _config.fireRate;
-            Projectile projectile = _poolService.GetProjectile();
-            projectile.Fire(_owner, _firePoint.position, transform.rotation, _config.projectile);
+            _projectileManager.Fire(_owner, _firePoint.position, transform.rotation, _config.projectile);
         }
     }
 }

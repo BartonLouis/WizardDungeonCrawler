@@ -1,5 +1,6 @@
 using Louis.Patterns.ServiceLocator;
 using Louis.Patterns.Singleton;
+using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,6 +67,15 @@ namespace Gameplay.Projectiles {
 
             Collider2D[] collisions = Physics2D.OverlapCircleAll(p.transform.position, p.Config.colliderRadius, p.Config.collidesWith);
             if (collisions.Length > 0) {
+                float totalDamage = 0;
+                foreach(Collider2D collider in collisions) {
+                    collider.TryGetComponent<IDamageable>(out var damageable);
+                    Logging.Log(this, $"{damageable}");
+                    if (damageable == null) continue;
+                    totalDamage += damageable.Damage(p.Config.baseDamage);
+                }
+
+
                 MarkProjectileForDestruction(p, new HitInfo());
             }
         }

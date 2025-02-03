@@ -10,6 +10,8 @@ namespace Enemy {
         [SerializeField] Transform target;
 
         NavMeshAgent _agent;
+        public float health = 100;
+
 
         private void Awake() {
             _agent = GetComponent<NavMeshAgent>();
@@ -21,8 +23,13 @@ namespace Enemy {
             _agent.SetDestination(target.position);
         }
 
-        public float Damage(IProjectileOwner owner, float damage) {
-            return 0f;
+        public float Damage(float damage) {
+            float result = Mathf.Min(damage, health);
+            health -= damage;
+            if (health <= 0) {
+                Destroy(gameObject);
+            }
+            return result;
         }
     }
 }

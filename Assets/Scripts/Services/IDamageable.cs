@@ -7,6 +7,6 @@ namespace Gameplay {
 
 
     public interface IDamageable {
-        public float Damage(IProjectileOwner owner, float damage);
+        public float Damage(float damage);
     }
 }

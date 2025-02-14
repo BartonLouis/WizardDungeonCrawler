@@ -8,9 +8,9 @@ namespace DungeonGeneration {
         public BoundsInt bounds;
         public int margin;
         public int border;
+        public int maxOpenDoors;
         public RoomType roomType;
         public DoorSide openDoors;
-        public int maxOpenDoors;
 
         public RoomInfo(BoundsInt bounds, int margin, int border, RoomType roomType, int maxOpenDoors) {
             this.bounds = bounds;
@@ -46,7 +46,7 @@ namespace DungeonGeneration {
     }
 
     [Flags]
-    public enum DoorSide {
+    public enum DoorSide : byte {
         Top     = 1,
         Bottom  = 2,
         Left    = 4,

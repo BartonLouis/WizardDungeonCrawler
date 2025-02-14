@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CharacterMechanics.Stats {
+namespace Gameplay.Player.Stats {
     [CreateAssetMenu(menuName = "Data/Character/Scaling Settings")]
     public class PlayerSecondaryStatScalingSettings : ScriptableObject {
         [Header("Carry Capacity Scaling")]

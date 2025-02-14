@@ -1,6 +1,6 @@
 using System;
 
-namespace CharacterMechanics.Stats {
+namespace Gameplay.Player.Stats {
     public interface IStat<T> : Louis.Patterns.Observable.IObservable<T> {
         public void CalculateValue();
     }

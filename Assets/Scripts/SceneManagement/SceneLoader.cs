@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using Levels;
+using System.Collections;
+using System.Linq;
 
 namespace Managers {
     public class SceneLoader : PersistentSingleton<SceneLoader>, ISceneManagerService {
 
         [Header("References")]
+        [SerializeField] GameObject loadingScreen;
         [SerializeField] Level loadOnStart;
         List<SceneReference> loadedScenes = new();
 
@@ -19,18 +22,31 @@ namespace Managers {
         }
 
         private void Start() {
-            LoadLevel(loadOnStart);
+            loadingScreen.SetActive(false);
+            StartCoroutine(LoadLevelAsync(loadOnStart));
         }
 
         public void LoadLevel(Level level) {
-            foreach(var scene in level.scenes) {
-                LoadScene(scene.scene);
-            }
+            StartCoroutine(LoadLevelAsync(level));
         }
 
-        private void LoadScene(SceneReference scene) {
-            if (loadedScenes.Contains(scene)) return;
-            SceneManager.LoadScene(scene.Name, LoadSceneMode.Additive);
+        public IEnumerator LoadLevelAsync(Level level) {
+            loadingScreen.SetActive(true);
+            List<AsyncOperation> ops = new List<AsyncOperation>();
+            foreach(var scene in level.scenes) {
+                if (loadedScenes.Contains(scene.scene)) continue;
+                ops.Add(SceneManager.LoadSceneAsync(scene.scene.Name, LoadSceneMode.Additive));
+            }
+            while (!ops.All(op => op.isDone)) {
+                yield return null;
+            }
+            loadingScreen.SetActive(false);
+        }
+
+        private IEnumerator LoadScene(SceneReference scene) {
+            if (loadedScenes.Contains(scene)) yield break;
+            AsyncOperation op = SceneManager.LoadSceneAsync(scene.Name, LoadSceneMode.Additive);
+            while (!op.isDone) yield return null;
         }
     }
 

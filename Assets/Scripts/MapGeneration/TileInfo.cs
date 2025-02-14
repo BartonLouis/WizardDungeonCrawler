@@ -3,9 +3,9 @@
 namespace DungeonGeneration {
     [Serializable]
     public struct TileInfo {
-        public TileLayer layer;
         public int x;
         public int y;
+        public TileLayer layer;
 
         public TileInfo(TileInfo old, TileLayer layer) {
             x = old.x;
@@ -22,7 +22,7 @@ namespace DungeonGeneration {
     }
 
 
-    public enum TileLayer {
+    public enum TileLayer : byte {
         None,
         Floor,
         Wall

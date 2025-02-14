@@ -15,7 +15,7 @@ namespace DungeonGeneration {
     }
 
 
-    public enum RoomType {
+    public enum RoomType : byte{
         Normal = 0,
         Spawn = 1,
         Shop = 2,

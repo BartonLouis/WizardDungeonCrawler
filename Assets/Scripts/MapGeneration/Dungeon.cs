@@ -3,6 +3,7 @@ using Louis.Patterns.Singleton;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Utils;
@@ -121,6 +122,10 @@ namespace DungeonGeneration {
                 label.transform.position = room.bounds.center;
                 label.text = room.roomType.ToString();
             }
+        }
+
+        public IReadOnlyList<RoomInfo> GetRoomByType(RoomType roomType) {
+            return _rooms.Where(r => r.roomType == roomType).ToList();
         }
     }
 }

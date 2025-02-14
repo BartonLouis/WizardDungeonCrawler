@@ -70,7 +70,6 @@ namespace Gameplay.Projectiles {
                 float totalDamage = 0;
                 foreach(Collider2D collider in collisions) {
                     collider.TryGetComponent<IDamageable>(out var damageable);
-                    Logging.Log(this, $"{damageable}");
                     if (damageable == null) continue;
                     totalDamage += damageable.Damage(p.Config.baseDamage);
                 }

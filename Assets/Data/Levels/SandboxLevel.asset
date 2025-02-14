@@ -20,6 +20,6 @@ MonoBehaviour:
     sceneType: 0
   - name: Environment
     scene:
-      asset: {fileID: 102900000, guid: 752300071210d844c82b1d65dfe6897b, type: 3}
-      guid: 752300071210d844c82b1d65dfe6897b
+      asset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
+      guid: 8c9cfa26abfee488c85f1582747f6a02
     sceneType: 1

@@ -1,5 +1,3 @@
-using CharacterMechanics.Stats;
-using Interfaces;
 using Louis.Patterns.ServiceLocator;
 using System;
 using System.Collections.Generic;
@@ -7,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Utils;
 
-namespace CharacterMechanics {
+namespace Gameplay.Player.Stats {
 
     public class PlayerStatsManager : MonoBehaviour, IPlayerStatsService {
         public static readonly int STAT_MIN_VALUE = 1;

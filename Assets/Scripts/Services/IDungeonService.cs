@@ -28,6 +28,7 @@ namespace DungeonGeneration {
 
         public IReadOnlyList<TileInfo> Map { get; }
         public IReadOnlyList<RoomInfo> Rooms { get; }
+        public IReadOnlyList<RoomInfo> GetRoomByType(RoomType roomType);
         public TileInfo this[int x, int y] { get; }
         public void ShowRoomLabels(Transform parent, TextMeshProUGUI prefab);
     }

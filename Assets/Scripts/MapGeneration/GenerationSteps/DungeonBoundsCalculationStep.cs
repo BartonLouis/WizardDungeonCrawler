@@ -17,7 +17,7 @@ namespace DungeonGeneration {
                 }
             }
 
-            int squareSize = Mathf.CeilToInt(2 * (radius + _falloffRadius + _safeZoneSize));
+            int squareSize = Mathf.CeilToInt(2 * (radius + _safeZoneSize));
             int width = squareSize;
             int height = squareSize;
             TileInfo[] tiles = new TileInfo[width * height];
@@ -30,7 +30,7 @@ namespace DungeonGeneration {
                     };
                 }
             }
-            dungeon.SetMap(tiles, width, height, radius, _falloffRadius, _safeZoneSize);
+            dungeon.SetMap(tiles, width, height, radius - _falloffRadius, _falloffRadius, _safeZoneSize);
         }
     }
 }

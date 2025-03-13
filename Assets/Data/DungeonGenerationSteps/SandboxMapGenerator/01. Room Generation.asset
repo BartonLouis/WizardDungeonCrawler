@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454d90627fea9034abae6f78b4fe3082, type: 3}
+  m_Name: 01. Room Generation
+  m_EditorClassIdentifier: 
+  _placementRadius: 0
+  _roomBorder: 5
+  _roomMargin: 5
+  _roomGroups:
+  - name: Spawn (1)
+    roomType: 1
+    weightToEdgeOfMap: 0.1
+    minNumberOfRoomsFromGroup: 1
+    maxNumberOfRoomsFromGroup: 1
+    rooms:
+    - {fileID: 11400000, guid: c0d6bf11f295eaa42bc46e775923c949, type: 2}
+    separationConfigs: []

@@ -1,6 +1,6 @@
+using CustomTypes;
 using DelaunatorSharp;
 using DelaunatorSharp.Unity.Extensions;
-using Managers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,9 +10,11 @@ namespace DungeonGeneration {
     [CreateAssetMenu(menuName = "Dungeon Generation/Generation Step/Corridor Generation Step")]
     public class CorridorGenerationStep : AbstractGenerationStep {
         [Header("Settings")]
-        [SerializeField] int _corridorSize;
         [Tooltip("This is the margin around all rooms which corridors must be outside to be considered safe")]
         [SerializeField] int _marginOfSafety = 3;
+
+
+        public EnumMatrix roomConnections = new();
         Dungeon _dungeon;
 
         public override void Generate(Dungeon dungeon) {
@@ -24,20 +26,29 @@ namespace DungeonGeneration {
                 Vector2 p1 = e.P.ToVector2();
                 Vector2 p2 = e.Q.ToVector2();
 
-                RoomInfo start = _dungeon.Rooms.FirstOrDefault(r => r.bounds.center == (Vector3)p1);
-                RoomInfo end = _dungeon.Rooms.FirstOrDefault(r => r.bounds.center == (Vector3)p2);
+                int startRoomIndex = 0;
+                int endRoomIndex = 0;
+                for (int i = 0; i < _dungeon.Rooms.Count; i++) {
+                    if (_dungeon.Rooms[i].bounds.center == (Vector3)p1) startRoomIndex = i;
+                    if (_dungeon.Rooms[i].bounds.center == (Vector3)p2) endRoomIndex = i;
+                }
 
-                CorridorInfo corridor = new CorridorInfo() {
-                    start = start,
-                    end = end,
-                };
+                RoomInfo startRoom = _dungeon.Rooms[startRoomIndex];
+                RoomInfo endRoom = _dungeon.Rooms[endRoomIndex];
+                if (!roomConnections[startRoom.roomType, endRoom.roomType]) {
+                    return;
+                }
+
+                CorridorInfo corridor = CreateCorridor(startRoomIndex, endRoomIndex);
+                if (corridor == default) return;
 
                 bool intersectsAny = false;
                 foreach (var room in dungeon.Rooms) {
-                    if (room == start || room == end) {
+                    if (room == startRoom || room == endRoom) {
                         continue;
                     }
-                    if (room.bounds.IntersectedByLine((start.bounds.center, end.bounds.center), _marginOfSafety)) {
+
+                    if (room.bounds.IntersectedByLine((corridor.startDoor, corridor.endDoor), _marginOfSafety)) {
                         intersectsAny = true;
                         break;
                     }
@@ -47,86 +58,33 @@ namespace DungeonGeneration {
                 }
             });
 
-
-
-            foreach (var corridor in corridors) {
-                DrawCorridor(corridor);
-            }
+            _dungeon.SetCorridors(corridors.ToArray());
         }
 
-        void DrawCorridor(CorridorInfo corridor) {
-            Vector2[] startDoors = corridor.start.GenerateDoors();
-            Vector2[] endDoors = corridor.end.GenerateDoors();
-            Vector2 startDoor = startDoors[0];
-            Vector2 endDoor = endDoors[0];
+        CorridorInfo CreateCorridor(int startRoomIndex, int endRoomIndex) {
+            RoomInfo startRoom = _dungeon.Rooms[startRoomIndex];
+            RoomInfo endRoom = _dungeon.Rooms[endRoomIndex];
+            DoorSide startSide = DoorSide.Top;
+            DoorSide endSide = DoorSide.Top;
+            Vector2 startDoor;
+            Vector2 endDoor;
             float shortest = float.MaxValue;
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    float dist = Vector2.Distance(startDoors[i], endDoors[j]);
+            foreach (DoorSide s1 in EnumUtils.GetValues<DoorSide>()) {
+                foreach (DoorSide s2 in EnumUtils.GetValues<DoorSide>()) {
+                    if (s1 == s2) continue;
+                    Vector2 d1 = startRoom.GenerateDoor(s1);
+                    Vector2 d2 = endRoom.GenerateDoor(s2);
+                    float dist = Vector2.Distance(d1, d2);
                     if (dist < shortest) {
-                        startDoor = startDoors[i];
-                        endDoor = endDoors[j];
                         shortest = dist;
+                        startSide = s1;
+                        endSide = s2;
+                        startDoor = d1;
+                        endDoor = d2;
                     }
                 }
             }
-
-            Bresenham(corridor.start.bounds.center, startDoor);
-            Bresenham(startDoor, endDoor);
-            Bresenham(endDoor, corridor.end.bounds.center);
-
-        }
-
-        void Bresenham(Vector2 start, Vector2 end) {
-            // Bresenham algorithm to rasteurize line along corridor
-            int x0 = (int)start.x;
-            int y0 = (int)start.y;
-            int x1 = (int)end.x;
-            int y1 = (int)end.y;
-            int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-            int dy = -Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-            int err = dx + dy, e2;
-            for (; ; ) {
-                BrushOnPoint(new Vector2Int(x0, y0));
-
-                if (x0 == x1 && y0 == y1) break;
-
-                e2 = 2 * err;
-
-                // horizontal step?
-                if (e2 > dy) {
-                    err += dy;
-                    x0 += sx;
-                }
-
-                // vertical step?
-                else if (e2 < dx) {
-                    err += dx;
-                    y0 += sy;
-                }
-            }
-        }
-
-
-        void BrushOnPoint(Vector2Int point) {
-            int min = -Mathf.FloorToInt(_corridorSize / 2f);
-            int max = Mathf.CeilToInt(_corridorSize / 2f);
-            for (int x = min; x < max; x++) {
-                for (int y = min; y < max; y++) {
-                    Vector2Int newPoint = point + new Vector2Int(x, y);
-                    _dungeon[newPoint.x, newPoint.y] = new TileInfo(_dungeon[newPoint.x, newPoint.y], TileLayer.Floor);
-                }
-            }
-        }
-
-
-
-
-        struct CorridorInfo {
-            public RoomInfo start;
-            public RoomInfo end;
-
-            public readonly float Length => Vector3.Distance(start.bounds.center, end.bounds.center);
+            return new(startRoomIndex, endRoomIndex, startSide, endSide, _dungeon);
         }
     }
 }

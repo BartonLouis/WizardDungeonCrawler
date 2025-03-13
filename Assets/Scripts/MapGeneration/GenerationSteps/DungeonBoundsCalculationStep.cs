@@ -8,22 +8,25 @@ namespace DungeonGeneration {
         [SerializeField] int _safeZoneSize;
 
         public override void Generate(Dungeon dungeon) {
-            int radius = 0;
+
+            int max = 0;
             foreach (RoomInfo room in dungeon.Rooms) {
-                float dist = Vector2.Distance(dungeon.Center, room.bounds.center);
-                //dist += Mathf.Sqrt(room.bounds.size.x * room.bounds.size.x + room.bounds.size.y * room.bounds.size.y);
-                if (dist > radius) {
-                    radius = Mathf.CeilToInt(dist);
-                }
+                int distanceSqrd = (int)(room.bounds.center.x * room.bounds.center.x + room.bounds.center.y * room.bounds.center.y);
+                max = distanceSqrd > max ? distanceSqrd : max;
             }
 
-            int squareSize = Mathf.CeilToInt(2 * (radius + _safeZoneSize));
+
+            int radius = (int)Mathf.Sqrt(max);
+            int squareSize = Mathf.CeilToInt(2 * (radius + _falloffRadius + _safeZoneSize));
             int width = squareSize;
             int height = squareSize;
             TileInfo[] tiles = new TileInfo[width * height];
-            for (int x = -width / 2; x < width / 2; x++) {
-                for (int y = -height / 2; y < height / 2; y++) {
-                    tiles[(width * (y + height / 2)) + x + width / 2] = new TileInfo() {
+
+            int halfWidth = width / 2;
+            int halfHeight = height / 2;
+            for (int x = -halfWidth; x < halfWidth; x++) {
+                for (int y = -halfHeight; y < halfHeight; y++) {
+                    tiles[(width * (y + halfHeight)) + x + halfWidth] = new TileInfo() {
                         x = x,
                         y = y,
                         layer = TileLayer.Floor

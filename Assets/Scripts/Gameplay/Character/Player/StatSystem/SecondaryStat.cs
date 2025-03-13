@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CharacterMechanics.Stats {
+namespace Gameplay.Player.Stats {
     public abstract class SecondaryStat : IStat<float> {
         public abstract SecondaryStatTag Tag { get; }
         public abstract PrimaryStatTag ScalesOnTag { get; }

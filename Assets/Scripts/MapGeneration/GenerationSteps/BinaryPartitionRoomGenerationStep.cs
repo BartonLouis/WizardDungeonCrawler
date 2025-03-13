@@ -40,7 +40,7 @@ namespace DungeonGeneration {
             rooms.Shuffle(_random);
             rooms = rooms.Take(Mathf.Min(_maxRooms, rooms.Count())).ToList();
             foreach (RoomInfo room in rooms) {
-                dungeon.DrawRoom(room);
+                //dungeon.DrawRoom(room);
             }
         }
 

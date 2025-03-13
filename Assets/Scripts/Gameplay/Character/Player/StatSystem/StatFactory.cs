@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CharacterMechanics.Stats {
+namespace Gameplay.Player.Stats {
     public static class StatFactory {
         public static PrimaryStat CreatePrimaryStat(PlayerStatsManager player, PrimaryStatTag tag) {
             return new PrimaryStat(player, tag);

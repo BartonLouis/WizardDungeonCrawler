@@ -1,6 +1,7 @@
 using Managers;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace DungeonGeneration {
@@ -33,7 +34,9 @@ namespace DungeonGeneration {
 
             foreach(var tile in dungeon) { 
                 if (!connectedTiles.Contains(tile)) {
-                    dungeon[tile.x, tile.y] = new TileInfo(tile, TileLayer.Wall);
+                    TileInfo t = tile;
+                    t.layer = TileLayer.Wall;
+                    dungeon[tile.x, tile.y] = t;
                 }
             }
         }

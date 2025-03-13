@@ -1,4 +1,4 @@
-using CharacterMechanics;
+using Gameplay.Player.Stats;
 using Managers;
 using UnityEditor;
 

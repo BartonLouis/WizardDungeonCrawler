@@ -3,7 +3,10 @@ using Louis.Patterns.Singleton;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
+using Utils;
 
 namespace DungeonGeneration {
 
@@ -14,6 +17,7 @@ namespace DungeonGeneration {
 
         TileInfo[] _map;
         RoomInfo[] _rooms;
+        CorridorInfo[] _corridors;
         public Transform Transform => _transform;
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -24,6 +28,7 @@ namespace DungeonGeneration {
         public int Seed => _seed;
         public IReadOnlyList<TileInfo> Map => _map;
         public IReadOnlyList<RoomInfo> Rooms => _rooms;
+        public IReadOnlyList<CorridorInfo> Corridors => _corridors;
 
         public TileInfo this[int x, int y] {
             get {
@@ -67,6 +72,7 @@ namespace DungeonGeneration {
             Center = center;
             _map = new TileInfo[0];
             _rooms = new RoomInfo[0];
+            _corridors = new CorridorInfo[0];
         }
 
         public void SetMap(TileInfo[] map, int width, int height, int radius, int falloffRadius, int border) {
@@ -92,6 +98,10 @@ namespace DungeonGeneration {
             _rooms = rooms;
         }
 
+        public void SetCorridors(CorridorInfo[] corridors) {
+            _corridors = corridors;
+        }
+
         public IEnumerator<TileInfo> GetEnumerator() {
             foreach (TileInfo tile in _map) {
                 yield return tile;
@@ -100,6 +110,22 @@ namespace DungeonGeneration {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return _map.GetEnumerator();
+        }
+
+        public void ShowRoomLabels(Transform parent, TextMeshProUGUI prefab) {
+            for (int i = parent.childCount - 1; i >= 0; i--) {
+                parent.GetChild(i).gameObject.SmartDestroy();
+            }
+
+            foreach (var room in Rooms) {
+                TextMeshProUGUI label = Instantiate(prefab, parent);
+                label.transform.position = room.bounds.center;
+                label.text = room.roomType.ToString();
+            }
+        }
+
+        public IReadOnlyList<RoomInfo> GetRoomByType(RoomType roomType) {
+            return _rooms.Where(r => r.roomType == roomType).ToList();
         }
     }
 }

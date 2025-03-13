@@ -1,10 +1,9 @@
-﻿using CharacterMechanics.Stats;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils;
 
-namespace CharacterMechanics {
+namespace Gameplay.Player.Stats {
     [CreateAssetMenu(menuName = "Data/Character/CharacterStats")]
     public class PlayerBaseStats : ScriptableObject {
         [SerializeField] List<PrimaryStatValue> stats;

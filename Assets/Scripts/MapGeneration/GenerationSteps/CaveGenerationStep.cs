@@ -89,7 +89,7 @@ namespace DungeonGeneration {
                 || tile.x >= width / 2 - outerThickness - 1 
                 || tile.y <= -width / 2 + outerThickness 
                 || tile.y >= height / 2 - outerThickness - 1) {
-                nextState[index] = new TileInfo(tile, TileLayer.Wall);
+                nextState[index] = tile;
                 return;
             }
 
@@ -112,7 +112,8 @@ namespace DungeonGeneration {
                 for (int y = -1; y <= 1; y++) {
                     int neighbourIndex = index + (y * width) + x;
                     if (neighbourIndex < 0 || neighbourIndex >= currentState.Length) {
-                        nextState[index] = new TileInfo(tile, TileLayer.Wall);
+                        tile.layer = TileLayer.Wall;
+                        nextState[index] = tile;
                         return;
                     } else if (currentState[neighbourIndex].layer == TileLayer.Wall) {
                         weightSum += math.abs(x + y) % 2 == 0 ? adjacentWeight : diagonalWeight;
@@ -120,7 +121,8 @@ namespace DungeonGeneration {
                 }
             }
 
-            nextState[index] = new TileInfo(tile, weightSum > requiredThreshold ? TileLayer.Wall : TileLayer.Floor);
+            tile.layer = weightSum > requiredThreshold ? TileLayer.Wall : TileLayer.Floor;
+            nextState[index] = tile;
         }
     }
 }

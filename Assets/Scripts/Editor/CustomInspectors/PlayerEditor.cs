@@ -1,6 +1,4 @@
-using CharacterMechanics;
-using CharacterMechanics.Stats;
-using Managers;
+using Gameplay.Player.Stats;
 using UnityEditor;
 using UnityEngine;
 using Utils;

@@ -1,7 +1,6 @@
-﻿using CharacterMechanics.Stats;
-using Louis.Patterns.ServiceLocator;
+﻿using Louis.Patterns.ServiceLocator;
 
-namespace Interfaces {
+namespace Gameplay.Player.Stats {
     public interface IPlayerStatsService : IService {
         PrimaryStat this[PrimaryStatTag tag] { get; }
         SecondaryStat this[SecondaryStatTag tag] { get; }

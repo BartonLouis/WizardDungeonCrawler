@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace CharacterMechanics.Stats {
+namespace Gameplay.Player.Stats {
     public class PrimaryStat : IStat<int> {
         public PrimaryStatTag Tag { get; private set; }
         private int _value;

@@ -1,15 +1,15 @@
 using Louis.Patterns.Blackboards;
 
 namespace Louis.Patterns.StateMachine {
-    public class StateMachine {
-        public IState CurrentState { get; private set; }
+    public class StateMachine<T> where T : IState {
+        public T CurrentState { get; private set; }
         protected Blackboard blackboard { get; }
 
         public StateMachine(Blackboard blackboard) {
             this.blackboard = blackboard;
         }
 
-        public void SetState(IState state) {
+        public void SetState(T state) {
             CurrentState?.OnStateLeave();
             CurrentState = state;
             CurrentState.OnStateEnter();

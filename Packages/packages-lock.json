@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "64285ae060c9fe2aeb2a73b076b160939ce3be1a"
+    },
     "com.eflatun.scenereference": {
       "version": "git+https://github.com/starikcetin/Eflatun.SceneReference.git#4.1.1",
       "depth": 0,
@@ -16,6 +23,54 @@
       "source": "git",
       "dependencies": {},
       "hash": "6d8836e05af9cb9b5274e97d522ff0548423cf9e"
+    },
+    "com.louis.customprojectsetup": {
+      "version": "file:C:/Users/chad/Documents/GitHub/Misc/CustomPackages/Assets/CustomPackages/CustomProjectSetup",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
+    "com.louis.eventbussystem": {
+      "version": "https://github.com/LouisTSAS/EventBusPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2c02ca28d8706487a3b34fdb7b75799e5f1e556c"
+    },
+    "com.louis.logging": {
+      "version": "https://github.com/LouisTSAS/LoggingPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1df43fce5be9f4f09244c51eda60d976d49b82b0"
+    },
+    "com.louis.serializableinterfaces": {
+      "version": "https://github.com/LouisTSAS/SerializableInterfacesPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e2e52cdc51fc8e8487aca6e4216be7eff564f639"
+    },
+    "com.louis.servicelocator": {
+      "version": "https://github.com/LouisTSAS/ServiceLocatorPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5583ff2d2f270ee13573e005fa36c370a8edfa36"
+    },
+    "com.louis.singletons": {
+      "version": "https://github.com/LouisTSAS/SingletonPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f8137ec200046f112c66d463cc539deb5c3845c9"
+    },
+    "com.louis.statemachines": {
+      "version": "https://github.com/LouisTSAS/StateMachinePackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2cbb3a7fa82af94bb6fb3c43d6216bc9f8a0b52f"
     },
     "com.nol1fe.delaunator": {
       "version": "https://github.com/nol1fe/delaunator-sharp.git?path=DelaunatorSharp.Unity",
@@ -375,6 +430,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.hadashikick.vcontainer": {
+      "version": "1.17.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

@@ -7,16 +7,11 @@ namespace Map.Generation {
         [Header("Settings")]
         [SerializeField] int _maxIterations;
         [SerializeField] float _maxStepSize;
-        int _currentIndex = 0;
 
-        public override void Init() {
-            _currentIndex = 0;
-        }
-
-        public override bool ApplyStep(Map map, Random random) {
-            if(SeparateIteration(map)) return false;
-            _currentIndex++;
-            return _currentIndex <= _maxIterations;
+        public override void ApplyStep(Map map, Random random) {
+            for (int i = 0; i < _maxIterations; i++) {
+                if(!SeparateIteration(map)) break;
+            }
         }
 
         bool SeparateIteration(Map map) {

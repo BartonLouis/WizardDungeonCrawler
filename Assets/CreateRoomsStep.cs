@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
@@ -17,7 +16,7 @@ namespace Map.Generation {
         [Space(10)]
         [SerializeField] int _maxDistanceFromOrigin;
 
-        public override bool ApplyStep(Map map, Random random) {
+        public override void ApplyStep(Map map, Random random) {
             List<Room> rooms = new();
             for(int i = 0; i < _numberOfRooms; i++) {
                 rooms.Add(GenerateRoom(0, random));
@@ -27,7 +26,6 @@ namespace Map.Generation {
                 rooms.Add(GenerateRoom(-1, random));
             }
             map.rooms = rooms.ToArray();
-            return true;
         }
 
         Room GenerateRoom(int id, Random random) {

@@ -7,7 +7,7 @@ using Random = System.Random;
 namespace Map.Generation {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Delaunay Triangulation Corridor Generation Step", order = 4)]
     public class DelaunayCorridorGenerationStep : MapGenerationStep {
-        public override bool ApplyStep(Map map, Random random) {
+        public override void ApplyStep(Map map, Random random) {
             var roomPositions = new NativeArray<Vector2>(map.rooms.Length, Allocator.Persistent);
             for(int i = 0; i < map.rooms.Length; i++) {
                 roomPositions[i] = map.rooms[i].Center;
@@ -55,7 +55,6 @@ namespace Map.Generation {
             roomPositions.Dispose();
             triangulator.Dispose();
             map.corridors = corridors.ToArray();
-            return true;
         }
     }
 }

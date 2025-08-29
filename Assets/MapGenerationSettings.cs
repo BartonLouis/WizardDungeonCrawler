@@ -24,7 +24,7 @@ namespace Map.Generation {
 
 
         class NoopGenerationStep : IMapGenerationStep {
-            public bool ApplyStep(Map map, Random random) => false;
+            public void ApplyStep(Map map, Random random) { }
             public void Init() { }
         }
     }

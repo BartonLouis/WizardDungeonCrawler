@@ -18,8 +18,6 @@ namespace Map.Generation {
             currentIndex = 0;
             _random = new Random(_seed);
             _map = new();
-            foreach(var step in _settings.Steps) 
-                step.Init();
         }
 
         private void Update() {
@@ -33,8 +31,8 @@ namespace Map.Generation {
             if(_map == null) return;
             IMapGenerationStep step = _settings[currentIndex];
             Logging.Log(this, $"Generating Step {_settings[currentIndex]}");
-            bool stepComplete = step.ApplyStep(_map, _random);
-            if(stepComplete) currentIndex++;
+            step.ApplyStep(_map, _random);
+            currentIndex++;
         }
     }
 }

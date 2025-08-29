@@ -10,7 +10,7 @@ namespace Map.Generation {
         [Range(0f, 1f), SerializeField] float _chanceToAddExtra;
 
 
-        public override bool ApplyStep(Map map, Random random) {
+        public override void ApplyStep(Map map, Random random) {
             List<Corridor> sortedCorridors = map.corridors.OrderBy(c => c.Length).ToList();
             List<Corridor> unchosen = new();
             DisjointSet dsu = new(map.rooms.Length);
@@ -36,7 +36,6 @@ namespace Map.Generation {
             }
 
             map.corridors = mst.ToArray();
-            return true;
         }
 
         class DisjointSet {

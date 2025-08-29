@@ -40,8 +40,8 @@ namespace Map.Generation {
 
             List<Corridor> corridors = new();
             foreach(var (id1, id2) in edgesSet) {
-                var p1 = positions[id1];
-                var p2 = positions[id2];
+                var p1 = map.rooms[id1].Center;
+                var p2 = map.rooms[id2].Center;
                 corridors.Add(new() {
                     room1Index = id1,
                     room2Index = id2,

@@ -31,17 +31,17 @@ namespace Map {
 
         public readonly float HalfWidth => size.x / 2f + border + margin;
         public readonly float HalfHeight => size.y / 2f + border + margin;
-        public readonly Vector2 Center => position + HalfWidth * Vector2.right + HalfHeight * Vector2.up;
+        public readonly Vector2 Center => new Vector2(position.x + size.x / 2, position.y + size.y / 2);
 
         public static float RequiredGapX(Room a, Room b) => a.HalfWidth + b.HalfWidth /*+ Mathf.Max(a.margin, b.margin)*/;
         public static float RequiredGapY(Room a, Room b) => a.HalfHeight + b.HalfHeight /*+ Mathf.Max(a.margin, b.margin)*/;
 
         public IEnumerable<Vector2Int> Doors {
             get {
-                yield return position + (int)HalfWidth * Vector2Int.right;   // Bottom
-                yield return position + (int)HalfHeight * Vector2Int.up;     // Left
-                yield return position + (int)HalfWidth * Vector2Int.right + size.y * Vector2Int.up;  // Top
-                yield return position + (int)HalfHeight * Vector2Int.up + size.x * Vector2Int.right; // Right
+                yield return position + (size.x / 2) * Vector2Int.right;   // Bottom
+                yield return position + (size.y / 2) * Vector2Int.up;     // Left
+                yield return position + (size.x / 2) * Vector2Int.right + size.y * Vector2Int.up;  // Top
+                yield return position + (size.y / 2) * Vector2Int.up + size.x * Vector2Int.right; // Right
             }
         }
 

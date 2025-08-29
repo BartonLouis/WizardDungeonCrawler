@@ -1,4 +1,5 @@
 using Louis.CustomPackages.Logging;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = System.Random;
@@ -15,23 +16,38 @@ namespace Map.Generation {
         int currentIndex;
 
         private void Start() {
-            currentIndex = 0;
-            _random = new Random(_seed);
-            _map = new();
+            ResetGeneration();
         }
 
         private void Update() {
             if(Keyboard.current.spaceKey.wasPressedThisFrame) {
                 RunStep();
             }
+            if(Keyboard.current.backspaceKey.wasPressedThisFrame) {
+                ResetGeneration();
+            }
+            if(Keyboard.current.escapeKey.wasPressedThisFrame) {
+                Random rnd = new();
+                _seed = rnd.Next();
+                ResetGeneration();
+            }
             _map.Draw();
+        }
+
+        void ResetGeneration() {
+            currentIndex = 0;
+            _random = new Random(_seed);
+            _map = new();
         }
 
         public void RunStep() {
             if(_map == null) return;
+            Stopwatch sw = new();
+            sw.Start();
             IMapGenerationStep step = _settings[currentIndex];
-            Logging.Log(this, $"Generating Step {_settings[currentIndex]}");
             step.ApplyStep(_map, _random);
+            sw.Stop();
+            Logging.Log(this, $"Generating Step {_settings[currentIndex].GetType().Name} in {sw.Elapsed.TotalMilliseconds}ms");
             currentIndex++;
         }
     }

@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.andywiecko.burst.triangulator": {
+      "version": "https://github.com/andywiecko/BurstTriangulator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.burst": "1.8.7",
+        "com.unity.collections": "2.2.0"
+      },
+      "hash": "2b01e40f361ec3fa97e9652ad736a5d9b2000cbf"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
@@ -71,13 +81,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "2cbb3a7fa82af94bb6fb3c43d6216bc9f8a0b52f"
-    },
-    "com.nol1fe.delaunator": {
-      "version": "https://github.com/nol1fe/delaunator-sharp.git?path=DelaunatorSharp.Unity",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "8fadb8adada27aecf031e315a73790ca07431a78"
     },
     "com.unity.2d.animation": {
       "version": "10.1.4",
@@ -182,7 +185,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.18",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -199,7 +202,7 @@
     },
     "com.unity.collections": {
       "version": "2.5.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.17",
@@ -275,7 +278,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -382,7 +385,7 @@
     },
     "com.unity.test-framework.performance": {
       "version": "3.0.3",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31",

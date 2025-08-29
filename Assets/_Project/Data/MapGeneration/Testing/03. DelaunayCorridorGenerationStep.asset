@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a3d9c64d01cb1438a1215e35c6c0ec, type: 3}
-  m_Name: CreateRoomsStep
+  m_Script: {fileID: 11500000, guid: 14cd4632766a0f747aa310f421f41f2d, type: 3}
+  m_Name: 03. DelaunayCorridorGenerationStep
   m_EditorClassIdentifier: 
-  _numberOfRooms: 2
-  _widthRange: {x: 15, y: 15}
-  _heightRange: {x: 15, y: 15}
-  _border: 1
-  _margin: 1
-  _maxDistanceFromOrigin: 10

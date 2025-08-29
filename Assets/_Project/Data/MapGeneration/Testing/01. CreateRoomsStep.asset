@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a3d9c64d01cb1438a1215e35c6c0ec, type: 3}
+  m_Name: 01. CreateRoomsStep
+  m_EditorClassIdentifier: 
+  _numberOfRooms: 100
+  _widthRange: {x: 5, y: 15}
+  _heightRange: {x: 5, y: 15}
+  _border: 1
+  _margin: 1
+  _maxDistanceFromOrigin: 10

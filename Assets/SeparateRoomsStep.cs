@@ -1,81 +1,71 @@
-using System.Linq;
 using UnityEngine;
+using Random = System.Random;
 
-namespace MapGeneration {
+namespace Map.Generation {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Separate Rooms Step", order = 2)]
     public class SeparateRoomsStep : MapGenerationStep {
         [Header("Settings")]
         [SerializeField] int _maxIterations;
-        [Range(0f, 1f), SerializeField] float _pushAmount = .4f;
+        [SerializeField] float _maxStepSize;
+        int _currentIndex = 0;
 
-        public override Map ApplyStep(Map map) {
-            for(int iter = 0; iter < _maxIterations; iter++) {
-                // Returns true if some movement occured, so if it returns false, nothing overlapped, so we're done
-                if(!SeparateIteration(map)) break;
-            }
-
-            return map;
+        public override void Init() {
+            _currentIndex = 0;
         }
 
+        public override bool ApplyStep(Map map, Random random) {
+            if(SeparateIteration(map)) return false;
+            _currentIndex++;
+            return _currentIndex <= _maxIterations;
+        }
 
         bool SeparateIteration(Map map) {
+            Vector2[] forces = new Vector2[map.rooms.Length];
             bool moved = false;
-            for(int i = 0; i < map.rooms.Count(); i++) {
-                for(int j = 0; j < map.rooms.Count(); j++) {
-                    if(SeparatePair(ref map.rooms[i], ref map.rooms[j], _pushAmount)) moved = true;
+            for(int i = 0; i < map.rooms.Length; i++) {
+                for(int j = i + 1; j < map.rooms.Length; j++) {
+
+                    Vector2 f = SeparationForce(map.rooms[i], map.rooms[j]);
+                    if(f != Vector2Int.zero) moved = true;
+                    forces[i] += f;
+                    forces[j] -= f;
                 }
+            }
+            for(int i = 0; i < map.rooms.Length; i++) {
+                Vector2Int force = Vector2Int.RoundToInt(forces[i]);
+                force = new Vector2Int(
+                    (int)Mathf.Clamp(force.x, -_maxStepSize, _maxStepSize),
+                    (int)Mathf.Clamp(force.y, -_maxStepSize, _maxStepSize)
+                    );
+                map.rooms[i].position += force;
             }
             return moved;
         }
 
-        static bool SeparatePair(ref Room r1, ref Room r2, float pushAmountCoefficient) {
-            RectInt b1 = r1.GetBounds();
-            RectInt b2 = r2.GetBounds();
+        Vector2 SeparationForce(Room a, Room b) {
+            Vector2 delta = (b.Center - a.Center);
 
-            int requiredGap = Mathf.Max(r1.margin, r2.margin);
+            // Distances between centers
+            float dx = Mathf.Abs(delta.x);
+            float dy = Mathf.Abs(delta.y);
 
-            // Expand both bounds by the margin
-            RectInt expanded1 = ExpandRect(b1, requiredGap);
-            RectInt expanded2 = ExpandRect(b2, requiredGap);
+            // Minimum allowed distances
+            float minDx = Room.RequiredGapX(a, b);
+            float minDy = Room.RequiredGapY(a, b);
 
-            if(!expanded1.Overlaps(expanded2))
-                return false;
+            Vector2 force = Vector2.zero;
+            // Only apply force if overlapping
+            if(dx < minDx && dy < minDy) {
+                float overlapX = minDx - dx;
+                float overlapY = minDy - dy;
 
-            // Calculate the overlap vector
-            int overlapX = Mathf.Min(expanded1.xMax, expanded2.xMax) - Mathf.Max(expanded1.xMin, expanded2.xMin);
-            int overlapY = Mathf.Min(expanded1.yMax, expanded2.yMax) - Mathf.Max(expanded1.yMin, expanded2.yMin);
 
-            Vector2 pushDir;
-            int pushAmount;
-
-            if (overlapX < overlapY) {
-                // Push along X axis
-                pushDir = new Vector2(Mathf.Sign(r1.position.x - r2.position.x), 0);
-                pushAmount = overlapX;
-            } else {
-                // Push along Y axis
-                pushDir = new Vector2(0, Mathf.Sign(r1.position.y - r2.position.y));
-                pushAmount = overlapY;
+                if(overlapX < overlapY)
+                    force = new Vector2(Mathf.Sign(delta.x) * -overlapX, 0f);
+                else
+                    force = new Vector2(0f, Mathf.Sign(delta.y) * -overlapY);
             }
-
-            // Instead of full MTV, push only a fraction (but at least 1)
-            int step = Mathf.Max(1, Mathf.RoundToInt(pushAmount * pushAmountCoefficient));
-
-            // Split push between rooms
-            Vector2Int offset = Vector2Int.RoundToInt(pushDir * step);
-            r1.position += offset;
-            r2.position -= offset;
-
-            return true;
-        }
-
-        static RectInt ExpandRect(RectInt rect, int amount) {
-            return new RectInt(
-                rect.xMin - amount,
-                rect.yMin - amount,
-                rect.width + amount * 2,
-                rect.height + amount * 2
-                );
+            return force;
         }
     }
 }

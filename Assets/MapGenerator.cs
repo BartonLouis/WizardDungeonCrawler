@@ -1,27 +1,40 @@
 using Louis.CustomPackages.Logging;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Random = System.Random;
 
-namespace MapGeneration {
+namespace Map.Generation {
     public class MapGenerator : MonoBehaviour {
 
         [Header("Settings")]
+        [SerializeField] int _seed;
         [SerializeField] MapGenerationSettings _settings;
+        [SerializeReference] Map _map;
+        Random _random;
 
-        public void Test() {
-            Map map = Generate();
-            Logging.Log(this, $"Generated a map with size: {map.size}, {map.rooms.Length} rooms, and {map.corridors.Length} corridors.");
+        int currentIndex;
 
-            foreach(var room in map.rooms) {
-                room.Draw();
-            }
+        private void Start() {
+            currentIndex = 0;
+            _random = new Random(_seed);
+            _map = new();
+            foreach(var step in _settings.Steps) 
+                step.Init();
         }
 
-        Map Generate() {
-            Map map = new();
-            foreach(var step in _settings.Steps) {
-                map = step.ApplyStep(map);
+        private void Update() {
+            if(Keyboard.current.spaceKey.wasPressedThisFrame) {
+                RunStep();
             }
-            return map;
+            _map.Draw();
+        }
+
+        public void RunStep() {
+            if(_map == null) return;
+            IMapGenerationStep step = _settings[currentIndex];
+            Logging.Log(this, $"Generating Step {_settings[currentIndex]}");
+            bool stepComplete = step.ApplyStep(_map, _random);
+            if(stepComplete) currentIndex++;
         }
     }
 }

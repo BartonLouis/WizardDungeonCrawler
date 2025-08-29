@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aae54c9d40bc15543b9e1faa9079e3d8, type: 3}
-  m_Name: MapGenerationSettings
+  m_Script: {fileID: 11500000, guid: af576e1d798b9cb4eb3ad8ab70bce2aa, type: 3}
+  m_Name: 02. SeparateRoomsStep
   m_EditorClassIdentifier: 
-  _steps:
-  - {fileID: 11400000, guid: 10e38a8321193a242be928e5c2a55a54, type: 2}
-  - {fileID: 11400000, guid: 5952c588951f99648925eb166aca3b24, type: 2}
+  _maxIterations: 150
+  _maxStepSize: 10

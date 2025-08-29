@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.andywiecko.burst.triangulator": "https://github.com/andywiecko/BurstTriangulator.git",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.eflatun.scenereference": "git+https://github.com/starikcetin/Eflatun.SceneReference.git#4.1.1",
     "com.h8man.2d.navmeshplus": "https://github.com/h8man/NavMeshPlus.git#master",
@@ -10,7 +11,6 @@
     "com.louis.servicelocator": "https://github.com/LouisTSAS/ServiceLocatorPackage.git",
     "com.louis.singletons": "https://github.com/LouisTSAS/SingletonPackage.git",
     "com.louis.statemachines": "https://github.com/LouisTSAS/StateMachinePackage.git",
-    "com.nol1fe.delaunator": "https://github.com/nol1fe/delaunator-sharp.git?path=DelaunatorSharp.Unity",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.2d": "2.0.1",
@@ -24,6 +24,7 @@
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.10",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
+    "jp.hadashikick.vcontainer": "1.17.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
@@ -55,8 +56,7 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "jp.hadashikick.vcontainer": "1.17.0"
+    "com.unity.modules.xr": "1.0.0"
   },
   "scopedRegistries": [
     {

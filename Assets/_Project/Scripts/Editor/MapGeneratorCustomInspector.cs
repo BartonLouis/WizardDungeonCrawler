@@ -1,8 +1,7 @@
-using Louis.CustomPackages.Logging;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace MapGeneration {
+namespace Map.Generation {
     [CustomEditor(typeof(MapGenerator))]
     public class MapGeneratorCustomInspector : Editor {
         public VisualTreeAsset _visualTreeAsset;
@@ -22,7 +21,7 @@ namespace MapGeneration {
         }
 
         void OnClick(ClickEvent evnt) {
-            _generator.Test();
+            _generator.RunStep();
         }
     }
 }

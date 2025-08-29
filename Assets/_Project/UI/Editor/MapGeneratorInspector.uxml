@@ -2,4 +2,5 @@
     <Style src="project://database/Assets/_Project/UI/Editor/CustomEditors.uss?fileID=7433441132597879392&amp;guid=6a6d0211e6589f043897a231ae086036&amp;type=3#CustomEditors" />
     <uie:PropertyField binding-path="_settings" />
     <ui:Button text="Generate" name="GenerateButton" class="button" />
+    <uie:PropertyField binding-path="_map" />
 </ui:UXML>

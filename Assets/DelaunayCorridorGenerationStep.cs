@@ -5,12 +5,12 @@ using UnityEngine;
 using Random = System.Random;
 
 namespace Map.Generation {
-    [CreateAssetMenu(menuName = "Data/Generation Steps/Delaunay Triangulation Corridor Generation Step", order = 3)]
+    [CreateAssetMenu(menuName = "Data/Generation Steps/Delaunay Triangulation Corridor Generation Step", order = 4)]
     public class DelaunayCorridorGenerationStep : MapGenerationStep {
         public override bool ApplyStep(Map map, Random random) {
             var roomPositions = new NativeArray<Vector2>(map.rooms.Length, Allocator.Persistent);
             for(int i = 0; i < map.rooms.Length; i++) {
-                roomPositions[i] = map.rooms[i].position;
+                roomPositions[i] = map.rooms[i].Center;
             }
 
             var triangulator = new Triangulator<Vector2>(Allocator.Persistent) {

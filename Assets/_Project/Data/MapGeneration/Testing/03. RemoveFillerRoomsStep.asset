@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a043bb4c676c2d742bc8fb7f1f74ce0d, type: 3}
-  m_Name: 05. CorridorDoorAlignmentStep
+  m_Script: {fileID: 11500000, guid: f601fbd9b561b6e4c8e1e49222f58013, type: 3}
+  m_Name: 03. RemoveFillerRoomsStep
   m_EditorClassIdentifier: 

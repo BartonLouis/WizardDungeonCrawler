@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = System.Random;
 
 namespace Map.Generation {
-    [CreateAssetMenu(menuName = "Data/Generation Steps/Corridor Door Alignment Step", order = 5)]
+    [CreateAssetMenu(menuName = "Data/Generation Steps/Corridor Door Alignment Step", order = 6)]
     public class CorridorDoorAlignmentStep : MapGenerationStep {
 
         int _currentCorridorIndex;
@@ -32,16 +32,29 @@ namespace Map.Generation {
                     }
                 }
             }
+
+            var positions = new Vector2Int[4]{
+                room1Door,
+                GetDoorExit(room1Door, r1),
+                GetDoorExit(room2Door, r2),
+                room2Door
+            };
             corridor = new Corridor() {
                 room1Index = corridor.room1Index,
                 room2Index = corridor.room2Index,
-                positions = new Vector2Int[] { room1Door, room2Door },
+                positions = positions,
                 width = corridor.width
             };
             map.corridors[_currentCorridorIndex] = corridor;
 
             _currentCorridorIndex++;
             return _currentCorridorIndex >= map.corridors.Length;
+        }
+
+        Vector2Int GetDoorExit(Vector2Int door, Room room) {
+            Vector2Int direction = Vector2Int.RoundToInt(door - room.Center);
+            direction = direction / (int)direction.magnitude;
+            return door + direction * (room.border + room.margin);
         }
     }
 }

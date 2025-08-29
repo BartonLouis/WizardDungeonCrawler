@@ -27,39 +27,21 @@ namespace Map {
             maxX = position.x + size.x + border,
             maxY = position.y + size.y + border
         };
-        
 
-        public readonly int HalfWidth => size.x / 2 + border;
-        public readonly int HalfHeight => size.y / 2 + border;
-        public readonly Vector2 Center => position + 0.5f * (Vector2)size;
 
-        public static float RequiredGapX(Room a, Room b) {
-            var aBorder = a.BorderBounds;
-            var bBorder = b.BorderBounds;
+        public readonly float HalfWidth => size.x / 2f + border + margin;
+        public readonly float HalfHeight => size.y / 2f + border + margin;
+        public readonly Vector2 Center => position + HalfWidth * Vector2.right + HalfHeight * Vector2.up;
 
-            int halfA = aBorder.Width / 2;
-            int halfB = bBorder.Width / 2;
-
-            int margin = Mathf.Max(a.margin, b.margin);
-            return halfA + halfB + margin;
-        }
-        public static float RequiredGapY(Room a, Room b) {
-            var aBorder = a.BorderBounds;
-            var bBorder = b.BorderBounds;
-
-            int halfA = aBorder.Height / 2;
-            int halfB = bBorder.Height / 2;
-
-            int margin = Mathf.Max(a.margin, b.margin);
-            return halfA + halfB + margin;
-        }
+        public static float RequiredGapX(Room a, Room b) => a.HalfWidth + b.HalfWidth /*+ Mathf.Max(a.margin, b.margin)*/;
+        public static float RequiredGapY(Room a, Room b) => a.HalfHeight + b.HalfHeight /*+ Mathf.Max(a.margin, b.margin)*/;
 
         public IEnumerable<Vector2Int> Doors {
             get {
-                yield return position + HalfWidth * Vector2Int.right;   // Bottom
-                yield return position + HalfHeight * Vector2Int.up;     // Left
-                yield return position + HalfWidth * Vector2Int.right + size.y * Vector2Int.up;  // Top
-                yield return position + HalfHeight * Vector2Int.up + size.x * Vector2Int.right; // Right
+                yield return position + (int)HalfWidth * Vector2Int.right;   // Bottom
+                yield return position + (int)HalfHeight * Vector2Int.up;     // Left
+                yield return position + (int)HalfWidth * Vector2Int.right + size.y * Vector2Int.up;  // Top
+                yield return position + (int)HalfHeight * Vector2Int.up + size.x * Vector2Int.right; // Right
             }
         }
 

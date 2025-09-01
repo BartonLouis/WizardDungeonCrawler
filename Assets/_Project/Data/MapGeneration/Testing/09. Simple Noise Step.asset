@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a3d9c64d01cb1438a1215e35c6c0ec, type: 3}
-  m_Name: 01. CreateRoomsStep
+  m_Script: {fileID: 11500000, guid: bada49ad434244c4ca9e48c85f3bf3aa, type: 3}
+  m_Name: 09. Simple Noise Step
   m_EditorClassIdentifier: 
-  _numberOfRooms: 50
-  _numberOfPaddingRooms: 50
-  _widthRange: {x: 5, y: 15}
-  _heightRange: {x: 5, y: 15}
-  _border: 2
-  _margin: 2
-  _maxDistanceFromOrigin: 10
+  _wallChance: 0.3
+  _mapBorder: 5

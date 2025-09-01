@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Create Rooms Step", order = 1)]
-    public class CreateRoomsStep : MapGenerationStep {
+    internal class CreateRoomsStep : MapGenerationStep {
         [Header("Settings")]
         [SerializeField] int _numberOfRooms;
         [SerializeField] int _numberOfPaddingRooms;

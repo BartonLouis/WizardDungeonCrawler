@@ -1,10 +1,10 @@
+using Map.Generation.GenerationSteps;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Map.Generation {
     [CreateAssetMenu(menuName = "Data/Map Generation Settings")]
-    public class MapGenerationSettings : ScriptableObject {
+    internal class MapGenerationSettings : ScriptableObject {
         [Header("Steps")]
         [SerializeField] MapGenerationStep[] _steps;
         NoopGenerationStep _default = new();
@@ -20,12 +20,6 @@ namespace Map.Generation {
                 if(index < _steps.Length) return _steps[index];
                 return _default;
             }
-        }
-
-
-        class NoopGenerationStep : IMapGenerationStep {
-            public void ApplyStep(Map map, Random random) { }
-            public void Init() { }
         }
     }
 }

@@ -1,9 +1,9 @@
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Corridor Door Alignment Step", order = 7)]
-    public class CorridorDoorAlignmentStep : MapGenerationStep {
+    internal class CorridorDoorAlignmentStep : MapGenerationStep {
 
         public override void ApplyStep(Map map, Random random) {
             for (int i = 0; i < map.corridors.Length; i++) {

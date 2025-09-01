@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Kruskals MST Generation Step", order = 6)]
-    public class KruskalsMSTGeneratorStep : MapGenerationStep {
+    internal class KruskalsMSTGeneratorStep : MapGenerationStep {
         [Header("Settings")]
         [Range(0f, 1f), SerializeField] float _chanceToAddExtra;
 

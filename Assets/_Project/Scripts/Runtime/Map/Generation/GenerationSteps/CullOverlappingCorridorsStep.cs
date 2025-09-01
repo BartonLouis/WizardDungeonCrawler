@@ -2,9 +2,9 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Cull Overlapping Corridors Step", order = 5)]
-    public class CullOverlappingCorridorsStep : MapGenerationStep {
+    internal class CullOverlappingCorridorsStep : MapGenerationStep {
         public override void ApplyStep(Map map, Random random) {
             map.corridors = map.corridors.Where(c => !OverlapsRoom(c, map)).ToArray();
         }

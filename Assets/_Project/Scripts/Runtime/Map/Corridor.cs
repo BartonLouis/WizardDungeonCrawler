@@ -1,30 +1,7 @@
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Map {
-    [Serializable]
-    public class Map {
-        public Vector2Int size;
-        public Room[] rooms;
-        public Corridor[] corridors;
-
-        public Map() { 
-            size = new Vector2Int();
-            rooms = new Room[0];
-            corridors = new Corridor[0];
-        }
-
-        public void Draw() {
-            foreach(var room in rooms)
-                room.Draw();
-
-            foreach(var corridor in corridors)
-                corridor.Draw();
-        }
-    }
-
     [Serializable]
     public struct Corridor {
         public int room1Index;

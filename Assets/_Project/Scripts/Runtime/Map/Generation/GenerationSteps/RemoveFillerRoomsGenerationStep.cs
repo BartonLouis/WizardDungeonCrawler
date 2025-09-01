@@ -2,9 +2,9 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Remove Filler Rooms Step", order = 3)]
-    public class RemoveFillerRoomsGenerationStep : MapGenerationStep {
+    internal class RemoveFillerRoomsGenerationStep : MapGenerationStep {
         public override void ApplyStep(Map map, Random random) {
             map.rooms = map.rooms.Where(room => room.roomId >= 0).ToArray();
         }

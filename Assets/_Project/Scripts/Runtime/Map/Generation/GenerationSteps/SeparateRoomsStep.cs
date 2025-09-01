@@ -1,9 +1,9 @@
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Separate Rooms Step", order = 2)]
-    public class SeparateRoomsStep : MapGenerationStep {
+    internal class SeparateRoomsStep : MapGenerationStep {
         [Header("Settings")]
         [SerializeField] int _maxIterations;
         [SerializeField] float _maxStepSize;

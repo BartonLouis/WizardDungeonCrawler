@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Map {
@@ -44,6 +45,35 @@ namespace Map {
                 yield return position + (size.y / 2) * Vector2Int.up + size.x * Vector2Int.right; // Right
             }
         }
+
+        public IEnumerable<(int, int)> BorderPositions {
+            get {
+                // Top + Bottom border
+                for (int x = position.x - border - 1; x < position.x + size.x + border; x++) {
+                    for (int b = 0; b < border; b++) {
+                        yield return (x, position.y - 1 - b);
+                        yield return (x, position.y + size.y + b);
+                    }
+                }
+                for (int y = position.y;  y < position.y + size.y; y++) {
+                    for (int b = 0; b < border; b++) {
+                        yield return (position.x - 1 - b, y);
+                        yield return (position.x + size.x + b, y);
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<(int, int)> InteriorPositions {
+            get {
+                for(int x = position.x; x < position.x + size.x; x++) {
+                    for(int y = position.y; y < position.y + size.y; y++) {
+                        yield return (x, y);
+                    }
+                }
+            }
+        }
+        
 
         public void Draw() {
             Vector2 bottomLeft = new(position.x, position.y);

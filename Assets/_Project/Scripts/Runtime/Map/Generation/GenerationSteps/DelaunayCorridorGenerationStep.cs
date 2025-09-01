@@ -4,9 +4,9 @@ using Unity.Collections;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Map.Generation {
+namespace Map.Generation.GenerationSteps {
     [CreateAssetMenu(menuName = "Data/Generation Steps/Delaunay Triangulation Corridor Generation Step", order = 4)]
-    public class DelaunayCorridorGenerationStep : MapGenerationStep {
+    internal class DelaunayCorridorGenerationStep : MapGenerationStep {
         public override void ApplyStep(Map map, Random random) {
             var roomPositions = new NativeArray<Vector2>(map.rooms.Length, Allocator.Persistent);
             for(int i = 0; i < map.rooms.Length; i++) {

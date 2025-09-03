@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a3d9c64d01cb1438a1215e35c6c0ec, type: 3}
-  m_Name: 01. CreateRoomsStep
+  m_Script: {fileID: 11500000, guid: ccbdd0a0220941842a1fdeadebebcc76, type: 3}
+  m_Name: 11. Draw Corridors Step
   m_EditorClassIdentifier: 
-  _numberOfRooms: 100
-  _numberOfPaddingRooms: 100
-  _widthRange: {x: 5, y: 25}
-  _heightRange: {x: 5, y: 25}
-  _border: 2
-  _margin: 2
-  _maxDistanceFromOrigin: 20
+  _corridorSize: 3

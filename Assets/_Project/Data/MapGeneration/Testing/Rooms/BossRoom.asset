@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bada49ad434244c4ca9e48c85f3bf3aa, type: 3}
-  m_Name: 09. Simple Noise Step
+  m_Script: {fileID: 11500000, guid: cbb86500173401149ade41f9edb3cadf, type: 3}
+  m_Name: BossRoom
   m_EditorClassIdentifier: 
-  _wallChance: 0.3
-  _mapBorder: 5
+  size: {x: 25, y: 25}
+  border: 4
+  margin: 4
+  tag: 2

@@ -7,6 +7,7 @@ namespace Map.Generation.GenerationSteps {
         [Header("Settings")]
         [SerializeField] int _maxIterations;
         [SerializeField] float _maxStepSize;
+        [SerializeField] RoomAttractionMatrix _attractionMatrix;
 
         public override void ApplyStep(Map map, Random random) {
             for (int i = 0; i < _maxIterations; i++) {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Map {
@@ -14,6 +13,7 @@ namespace Map {
         public int border;
         public int margin;
         public int roomId;
+        public RoomType tag;
 
         public BoundsInt2D SafeBounds => new BoundsInt2D {
             minX = position.x - border - margin,
@@ -49,14 +49,14 @@ namespace Map {
         public IEnumerable<(int, int)> BorderPositions {
             get {
                 // Top + Bottom border
-                for (int x = position.x - border - 1; x < position.x + size.x + border; x++) {
-                    for (int b = 0; b < border; b++) {
+                for(int x = position.x - border - 1; x < position.x + size.x + border; x++) {
+                    for(int b = 0; b < border; b++) {
                         yield return (x, position.y - 1 - b);
                         yield return (x, position.y + size.y + b);
                     }
                 }
-                for (int y = position.y;  y < position.y + size.y; y++) {
-                    for (int b = 0; b < border; b++) {
+                for(int y = position.y; y < position.y + size.y; y++) {
+                    for(int b = 0; b < border; b++) {
                         yield return (position.x - 1 - b, y);
                         yield return (position.x + size.x + b, y);
                     }
@@ -73,7 +73,7 @@ namespace Map {
                 }
             }
         }
-        
+
 
         public void Draw() {
             Vector2 bottomLeft = new(position.x, position.y);
@@ -120,5 +120,14 @@ namespace Map {
 
         public readonly int Width => maxX - minX;
         public readonly int Height => maxY - minY;
+    }
+
+    public enum RoomType {
+        Filler      = 0x0,
+        Spawn       = 0x1,
+        Boss        = 0x2,
+        Shop        = 0x3,
+        Treasure    = 0x4,
+        Generic     = 0x5
     }
 }

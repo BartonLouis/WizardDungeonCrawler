@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a3d9c64d01cb1438a1215e35c6c0ec, type: 3}
-  m_Name: 01. CreateRoomsStep
+  m_Script: {fileID: 11500000, guid: cbb86500173401149ade41f9edb3cadf, type: 3}
+  m_Name: Generic2
   m_EditorClassIdentifier: 
-  _numberOfRooms: 100
-  _numberOfPaddingRooms: 100
-  _widthRange: {x: 5, y: 25}
-  _heightRange: {x: 5, y: 25}
-  _border: 2
-  _margin: 2
-  _maxDistanceFromOrigin: 20
+  size: {x: 15, y: 5}
+  border: 1
+  margin: 1
+  tag: 5

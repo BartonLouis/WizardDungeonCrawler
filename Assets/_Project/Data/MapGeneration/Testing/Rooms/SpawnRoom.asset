@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af576e1d798b9cb4eb3ad8ab70bce2aa, type: 3}
-  m_Name: 02. SeparateRoomsStep
+  m_Script: {fileID: 11500000, guid: cbb86500173401149ade41f9edb3cadf, type: 3}
+  m_Name: SpawnRoom
   m_EditorClassIdentifier: 
-  _maxIterations: 150
-  _maxStepSize: 10
+  size: {x: 7, y: 7}
+  border: 1
+  margin: 2
+  tag: 1

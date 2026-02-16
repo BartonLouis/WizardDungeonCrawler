@@ -356,38 +356,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96754f4008f804848bce4590b26d24d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseStats:
-    _baseStats:
+  _baseStats: {fileID: 11400000, guid: 37c10c852fbd12d4eb2c5acb786c44aa, type: 2}
+  _investedStats:
+    _stats:
     - type: 0
-      value: 0
+      value: 10
     - type: 1
-      value: 0
+      value: 10
     - type: 2
-      value: 0
+      value: 10
     - type: 3
-      value: 0
+      value: 10
     - type: 4
-      value: 0
+      value: 10
     - type: 5
-      value: 0
-    _investedPoints:
-    - type: 0
-      value: 0
-    - type: 1
-      value: 0
-    - type: 2
-      value: 0
-    - type: 3
-      value: 0
-    - type: 4
-      value: 0
-    - type: 5
-      value: 0
-    _modifiers:
-    - type: 0
-      value: 0
-    - type: 0
-      value: 0
+      value: 10
+  _primaryStatModifiers: []
+  _secondaryStatModifiers: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

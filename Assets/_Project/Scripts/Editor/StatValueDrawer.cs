@@ -2,7 +2,7 @@ using Stats;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-[CustomPropertyDrawer(typeof(StatValue))]
+[CustomPropertyDrawer(typeof(PrimaryStatValue))]
 public class StatValueDrawer : PropertyDrawer {
     public override VisualElement CreatePropertyGUI(SerializedProperty property) {
         // Root container (horizontal)
@@ -16,13 +16,13 @@ public class StatValueDrawer : PropertyDrawer {
         var valueProp = property.FindPropertyRelative("value");
 
         // Enum field (compact, minimal grow)
-        var enumField = new EnumField((StatType)typeProp.enumValueIndex);
+        var enumField = new EnumField((PrimaryStatType)typeProp.enumValueIndex);
         enumField.style.flexBasis = 100;   // fixed-ish width
         enumField.style.flexGrow = 0;      // does NOT expand
         enumField.style.flexShrink = 0;
 
         enumField.RegisterValueChangedCallback(evt => {
-            typeProp.enumValueIndex = (int)(StatType)evt.newValue;
+            typeProp.enumValueIndex = (int)(PrimaryStatType)evt.newValue;
             property.serializedObject.ApplyModifiedProperties();
         });
 

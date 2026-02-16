@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Label text="Vitality&#x9;&#x9;: 10&#10;Strength&#x9;&#x9;: 10&#10;Agility&#x9;&#x9;: 10&#10;Arcana&#x9;&#x9;: 10&#10;Intelligence&#x9;&#x9;: 10&#10;Elloquence&#x9;&#x9;: 10" name="statsLabel" />
+    <uie:PropertyField />
+</ui:UXML>
